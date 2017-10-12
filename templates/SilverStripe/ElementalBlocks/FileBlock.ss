@@ -1,7 +1,7 @@
 <% if $Title && $ShowTitle %>
-    <h2 class="element__title">$Title</h2>
+    <h2 class="fileelement__title">$Title</h2>
 <% end_if %>
 
-<div class="element__file">
+<div class="fileelement__file">
     $File
 </div>
