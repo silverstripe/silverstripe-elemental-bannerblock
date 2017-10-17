@@ -13,6 +13,7 @@
     "require": {
         "silverstripe/vendor-plugin": "^1.0",
         "dnadesign/silverstripe-elemental": "2.x-dev",
+        "silverstripe/cms": "^4.0",
         "silverstripe/assets": "^1.0"
     },
     "require-dev": {
@@ -22,7 +23,10 @@
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
-        }
+        },
+        "expose": [
+            "client/dist"
+        ]
     },
     "autoload": {
         "psr-4": {

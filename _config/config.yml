@@ -1,3 +1,6 @@
 ---
 Name: elementalblocksconfig
 ---
+SilverStripe\Core\Injector\Injector:
+  Link:
+    class: SilverStripe\ElementalBlocks\ORM\FieldType\DBLink

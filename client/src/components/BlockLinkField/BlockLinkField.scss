@@ -1,0 +1,43 @@
+// Used to adjust the position of elements inside the BlockLinkField
+$link-field-adjustment: 3px;
+
+.form__field-holder .blocklinkfield {
+  box-shadow: none;
+  padding: $input-padding-x-lg;
+  -webkit-box-shadow: none;
+
+  p {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    background-color: darken($white, 5%);
+    cursor: pointer;
+  }
+}
+
+.blocklinkfield__content {
+  bottom: $link-field-adjustment;
+  left: $panel-padding-y;
+  position: relative;
+
+}
+
+.blocklinkfield__content--message {
+  font-style: italic;
+}
+
+.blocklinkfield__link {
+  color: $link-color;
+  margin-left: $panel-padding-y;
+}
+
+.blocklinkfield__actions {
+  bottom: $link-field-adjustment;
+  float: right;
+}
+
+.blocklinkfield__icon {
+  position: relative;
+  top: $link-field-adjustment - 1;
+}
