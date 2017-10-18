@@ -1,10 +1,8 @@
 en:
   SilverStripe\ElementalBlocks\FileBlock:
-    MainTabLabel: Content
-    PLURALNAME: Files
+    BlockType: File
+    PLURALNAME: files
     PLURALS:
-      one: 'A File'
-      other: '{count} Files'
-    SINGULARNAME: File
-    ShowTitleLabel: Displayed
-    TitleLabel: 'Title (not displayed unless specified)'
+      one: 'A file'
+      other: '{count} files'
+    SINGULARNAME: file
