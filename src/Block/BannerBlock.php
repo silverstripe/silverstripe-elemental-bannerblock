@@ -32,12 +32,6 @@ class BannerBlock extends FileBlock
             $fields->removeByName('ImageLinkID');
             $fields->removeByName('CallToActionLinkID');
 
-            // Create hidden inputs for JSON input from the "insert link" modal
-            $fields->addFieldsToTab('Root.Main', [
-                HiddenField::create('ImageLinkData'),
-                HiddenField::create('CallToActionLinkData'),
-            ]);
-
             // Move the file upload field to be before the content
             $upload = $fields->fieldByName('Root.Main.File');
             $fields->insertBefore('Content', $upload);
