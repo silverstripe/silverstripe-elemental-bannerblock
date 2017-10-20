@@ -1,0 +1,4 @@
+SilverStripe\CMS\Model\SiteTree:
+  a_page:
+    Title: My Page
+    URLSegment: /my-page

@@ -73,11 +73,11 @@ class BlockLinkField extends FormField
     }
 
     /**
-     * Get the link "text"
+     * Get the link text/title
      *
      * @return string
      */
-    public function getLinkTitle()
+    public function getLinkText()
     {
         return $this->getParsedValue()->Text;
     }
