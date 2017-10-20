@@ -1,5 +1,11 @@
 # SilverStripe Elemental Blocks
 
+[![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-elemental-blocks.svg?style=flat)](https://travis-ci.org/silverstripe/silverstripe-elemental-blocks)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-blocks/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-blocks/?branch=master)
+[![codecov](https://codecov.io/gh/silverstripe/silverstripe-elemental-blocks/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-elemental-blocks)
+[![Version](http://img.shields.io/packagist/v/silverstripe/elemental-blocks.svg?style=flat)](https://packagist.org/packages/silverstripe/elemental-blocks)
+[![License](http://img.shields.io/packagist/l/silverstripe/elemental-blocks.svg?style=flat)](LICENSE.md)
+
 This repository contains a base set of CMS content blocks for the [silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental.git) module.
 
 ## Installation
