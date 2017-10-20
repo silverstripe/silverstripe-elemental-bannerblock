@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks;
+namespace SilverStripe\ElementalBlocks\Block;
 
 use DNADesign\Elemental\Models\BaseElement;
 use SilverStripe\Assets\File;
