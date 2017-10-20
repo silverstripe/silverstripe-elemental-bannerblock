@@ -11,7 +11,7 @@ $link-field-adjustment: 3px;
   }
 
   &:hover {
-    background-color: darken($white, 5%);
+    background-color: $table-hover-bg;
     cursor: pointer;
   }
 }
