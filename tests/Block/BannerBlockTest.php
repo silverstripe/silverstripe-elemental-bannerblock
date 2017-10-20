@@ -9,6 +9,8 @@ use SilverStripe\View\Requirements;
 
 class BannerBlockTest extends SapphireTest
 {
+    protected $usesDatabase = true;
+
     public function testTinyMceJavascriptIsRequiredBeforeBlocks()
     {
         $block = new BannerBlock;
