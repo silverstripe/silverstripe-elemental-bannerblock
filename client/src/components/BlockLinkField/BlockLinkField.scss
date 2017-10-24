@@ -1,6 +1,3 @@
-// Used to adjust the position of elements inside the BlockLinkField
-$link-field-adjustment: 3px;
-
 .form__field-holder .blocklinkfield {
   box-shadow: none;
   -webkit-box-shadow: none;
@@ -11,17 +8,13 @@ $link-field-adjustment: 3px;
   }
 }
 
-.blocklinkfield__content {
-  line-height: 2.6rem;
-
-  &:before {
-    content: "2"; // font-icon-link
-    font-family: silverstripe;
-    font-size: $font-size-lg * 1.2;
-    left: $btn-icon-spacing;
-    margin-right: $btn-icon-spacing * 3;
-    position: relative;
-  }
+.blocklinkfield__content:before {
+  content: "2"; // font-icon-link
+  font-family: silverstripe;
+  font-size: $font-size-lg * 1.2;
+  left: $btn-icon-spacing;
+  margin-right: $btn-icon-spacing * 3;
+  position: relative;
 }
 
 .blocklinkfield__content--message {
