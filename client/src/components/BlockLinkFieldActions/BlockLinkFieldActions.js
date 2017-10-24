@@ -75,7 +75,7 @@ class BlockLinkFieldActions extends Component {
     return (
       <div className="block-link-field-actions fieldholder-small input-group">
         <PopoverField
-          id="BlockLinkFieldActions"
+          id={this.props.id}
           popoverClassName="block-link-field-actions__menu"
           data={{ placement: 'bottom' }}
           container={this.props.container}
@@ -88,6 +88,7 @@ class BlockLinkFieldActions extends Component {
 }
 
 BlockLinkFieldActions.propTypes = {
+  id: React.PropTypes.string.isRequired,
   actions: React.PropTypes.arrayOf(React.PropTypes.shape({
     value: React.PropTypes.string.isRequired,
     label: React.PropTypes.string.isRequired,
@@ -101,6 +102,7 @@ BlockLinkFieldActions.propTypes = {
 };
 
 BlockLinkFieldActions.defaultProps = {
+  id: '',
   actions: [],
   PopoverField: null,
 };

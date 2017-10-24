@@ -143,11 +143,11 @@ jQuery.entwine('ss', ($) => {
             return action;
           }
         }
-        return action;
       });
 
       ReactDOM.render(
         <InjectedBlockLinkFieldActions
+          id={`${this.getLinkDataField().attr('name')}_Popover`}
           actions={actions}
           container={this.closest('form')[0]}
         />,
