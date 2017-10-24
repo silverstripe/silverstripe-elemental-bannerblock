@@ -1,7 +1,4 @@
-import $ from 'jquery';
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import ReactTestUtils from 'react-addons-test-utils';
 import { inject } from 'lib/Injector';
 import classnames from 'classnames';
 
@@ -10,18 +7,6 @@ class BlockLinkFieldActions extends Component {
     super(props);
 
     this.handleChangeValue = this.handleChangeValue.bind(this);
-  }
-
-  componentDidMount() {
-    const $select = $(ReactDOM.findDOMNode(this)).find('.dropdown');
-
-    $select.chosen({
-      allow_single_deselect: true,
-      disable_search_threshold: 20,
-    });
-
-    // Chosen stops the change event from reaching React so we have to simulate a click.
-    $select.change(() => ReactTestUtils.Simulate.click($select.find(':selected')[0]));
   }
 
   /**
@@ -57,9 +42,6 @@ class BlockLinkFieldActions extends Component {
     } else {
       promise = option.callback() || Promise.resolve();
     }
-
-    // Reset the dropdown to it's placeholder value.
-    $(ReactDOM.findDOMNode(this)).find('.dropdown').val('').trigger('liszt:updated');
 
     return promise;
   }
