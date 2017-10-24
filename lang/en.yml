@@ -14,4 +14,4 @@ en:
       other: '{count} files'
     SINGULARNAME: file
   SilverStripe\ElementalBlocks\Form\BlockLinkField:
-    None: None
+    Empty: Empty

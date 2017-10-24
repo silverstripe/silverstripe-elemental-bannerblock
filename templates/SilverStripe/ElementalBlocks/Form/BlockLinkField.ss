@@ -4,12 +4,14 @@
             <span class="blocklinkfield__title">$LinkText</span> <span class="blocklinkfield__link ml-2">$LinkRelativeUrl</span>
         <% else %>
             <span class="blocklinkfield__content--message">
-                <%t SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.None "None" %>
+                <%t SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.Empty "Empty" %>
             </span>
         <% end_if %>
     </span>
 
-    <button type="button" class="blocklinkfield__actions btn btn-sm btn-secondary font-icon-dot-3 btn--no-text" title="Other actions"></button>
+    <div class="blocklinkfield__actions">
+        <%-- Actions are rendered by the BlockLinkFieldActions React component --%>
+    </div>
 
     <input type="hidden" $AttributesHTML value="{$Value.JSON}" />
     <input type="hidden" id="{$Name}_Title" value="{$Title.ATT}" />

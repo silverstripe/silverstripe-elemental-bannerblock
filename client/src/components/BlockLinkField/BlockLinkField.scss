@@ -13,7 +13,6 @@ $link-field-adjustment: 3px;
 
 .blocklinkfield__content {
   line-height: 2.6rem;
-  padding-bottom: -$link-field-adjustment;
 
   &:before {
     content: "2"; // font-icon-link

@@ -1,8 +1,15 @@
 import jQuery from 'jquery';
+import i18n from 'i18n';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import BlockLinkFieldActions from 'components/BlockLinkFieldActions/BlockLinkFieldActions';
+import CONSTANTS from 'constants/index';
+import { provideInjector } from 'lib/Injector';
 
 const dialogWrapperClass = 'insert-link__dialog-wrapper';
 const internalDialogId = 'insert-link__dialog-wrapper--internal';
 const noTinyMceClass = `${internalDialogId}-no-tinymce`;
+const InjectedBlockLinkFieldActions = provideInjector(BlockLinkFieldActions);
 
 /**
  * The BlockLinkField allows you to add arbitrary links to a content block. They will be
@@ -12,7 +19,7 @@ const noTinyMceClass = `${internalDialogId}-no-tinymce`;
  * context.
  */
 jQuery.entwine('ss', ($) => {
-  $('.blocklinkfield').entwine({
+  $('.form__field-holder .blocklinkfield').entwine({
     /**
      * Get the dialog wrapper element selector
      *
@@ -58,7 +65,91 @@ jQuery.entwine('ss', ($) => {
 
         $(`#${internalDialogId}`).updateModalTitle($(this).find(`#${linkName}_Title`).val());
       }
-    }
+    },
+
+    /**
+     * Registering a change will replace the BlockLinkField content with a holding message
+     * to encourage the user to save the form to proceed with the new link data.
+     */
+    registerChange() {
+      this.find('.blocklinkfield__content')
+        .empty()
+        .append(
+          $('<span/>')
+            .addClass('blocklinkfield__content--message')
+            .text(i18n._t('BlockLinkField.ModifiedMessage', 'Changes will be visible upon save'))
+        );
+    },
+  });
+
+  $('.js-injector-boot .blocklinkfield__actions').entwine({
+    /**
+     * Get the BlockLinkField holder that owns the current actions popover
+     *
+     * @return {Object}
+     */
+    getLinkField() {
+      return this.parent('.blocklinkfield');
+    },
+
+    /**
+     * Get the hidden JSON data field from the containing BlockLinkField
+     *
+     * @return {Object}
+     */
+    getLinkDataField() {
+      return this.getLinkField().find('input:hidden.blocklinkfield');
+    },
+
+    /**
+     * If the BlockLinkField has some data set, render the actions popover to allow users
+     * to clear it.
+     */
+    onmatch() {
+      const data = JSON.parse(this.getLinkDataField().val());
+
+      if (data && typeof data.PageID !== 'undefined') {
+        this.renderActionsMenu();
+      }
+    },
+
+    /**
+     * Gather the actions for the popover menu and render it
+     */
+    renderActionsMenu() {
+      const actions = CONSTANTS.LINK_ACTIONS.map((action) => {
+        if (!action.callback) {
+          switch (action.value) {
+            case 'clear': {
+              return {
+                ...action,
+                callback: () => {
+                  // Remove the hidden JSON data object
+                  this.getLinkDataField().val('{}');
+
+                  // Register a change on the field, switching the content to a holding message
+                  this.getLinkField().registerChange();
+
+                  // Close the popover (NOTE DOESN'T WORK YET)
+                  this.remove();
+                }
+              };
+            }
+            default: {
+              return action;
+            }
+          }
+        }
+        return action;
+      });
+
+      ReactDOM.render(
+        <InjectedBlockLinkFieldActions
+          actions={actions}
+        />,
+        this[0]
+      );
+    },
   });
 
   $(`#${internalDialogId}`).entwine({
@@ -202,15 +293,9 @@ jQuery.entwine('ss', ($) => {
      * Update the form field labels, etc
      */
     updateFormField() {
-      const field = this.getLinkDataField().parent('.blocklinkfield');
-
-      field.find('.blocklinkfield__content')
-        .empty()
-        .append(
-          $('<span/>')
-            .addClass('blocklinkfield__content--message')
-            .text('Please save to continue')
-        );
+      this.getLinkDataField()
+        .parent('div.blocklinkfield')
+        .registerChange();
     },
 
     /**
