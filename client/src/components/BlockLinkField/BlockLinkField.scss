@@ -8,7 +8,7 @@
   }
 }
 
-.blocklinkfield__content:before {
+.blocklinkfield__icon::before {
   content: "2"; // font-icon-link
   font-family: silverstripe;
   font-size: $font-size-lg * 1.2;

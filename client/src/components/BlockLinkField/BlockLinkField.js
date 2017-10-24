@@ -118,26 +118,29 @@ jQuery.entwine('ss', ($) => {
      */
     renderActionsMenu() {
       const actions = CONSTANTS.LINK_ACTIONS.map((action) => {
-        if (!action.callback) {
-          switch (action.value) {
-            case 'clear': {
-              return {
-                ...action,
-                callback: () => {
-                  // Remove the hidden JSON data object
-                  this.getLinkDataField().val('{}');
+        if (action.callback) {
+          return action;
+        }
 
-                  // Register a change on the field, switching the content to a holding message
-                  this.getLinkField().registerChange();
+        switch (action.value) {
+          case 'clear': {
+            return {
+              ...action,
+              callback: () => {
+                // Remove the hidden JSON data object
+                this.getLinkDataField().val('{}');
 
-                  // Close the popover (NOTE DOESN'T WORK YET)
-                  this.remove();
-                }
-              };
-            }
-            default: {
-              return action;
-            }
+                // Register a change on the field, switching the content to a holding message
+                this.getLinkField().registerChange();
+
+                // Close the popover
+                this.remove();
+                $(`#${this.find('.btn').attr('aria-controls')}`).remove();
+              }
+            };
+          }
+          default: {
+            return action;
           }
         }
         return action;
@@ -146,6 +149,7 @@ jQuery.entwine('ss', ($) => {
       ReactDOM.render(
         <InjectedBlockLinkFieldActions
           actions={actions}
+          container={this.closest('form')[0]}
         />,
         this[0]
       );

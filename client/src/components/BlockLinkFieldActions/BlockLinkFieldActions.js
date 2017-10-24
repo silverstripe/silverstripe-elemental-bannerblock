@@ -26,7 +26,7 @@ class BlockLinkFieldActions extends Component {
 
     // Make sure a valid option has been selected.
     const option = this.getOptionByValue(event.target.value);
-    if (option === null) {
+    if (typeof option === 'undefined') {
       return null;
     }
 
@@ -78,6 +78,7 @@ class BlockLinkFieldActions extends Component {
           id="BlockLinkFieldActions"
           popoverClassName="block-link-field-actions__menu"
           data={{ placement: 'bottom' }}
+          container={this.props.container}
         >
           {children}
         </PopoverField>
