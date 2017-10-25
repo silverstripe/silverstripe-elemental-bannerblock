@@ -24,3 +24,15 @@
 .blocklinkfield__link {
   color: $link-color;
 }
+
+// xs devices only
+.blocklinkfield__title {
+  margin-right: $spacer;
+}
+
+// sm devices and up
+@media (min-width: map-get($grid-breakpoints, sm)) {
+  .blocklinkfield__title {
+    margin-right: ($spacer * 5);
+  }
+}

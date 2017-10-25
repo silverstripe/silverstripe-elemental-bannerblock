@@ -167,6 +167,28 @@ jQuery.entwine('ss', ($) => {
     },
 
     /**
+     * Show the "link text" field if the BlockLinkField has had setShowLinkText(true). This
+     * is used for call to action links, for example, but not for image links.
+     *
+     * @return {Boolean}
+     */
+    getRequireLinkText() {
+      if (this.isTinyMce()) {
+        return this._super();
+      }
+
+      const linkDataField = this.getLinkDataField();
+      if (typeof linkDataField === 'undefined'
+        || typeof linkDataField.data('showlinktext') === 'undefined'
+      ) {
+        return true;
+      }
+
+      // Refer to BlockLinkField::setShowLinkText for data attribute name
+      return !!+linkDataField.data('showlinktext');
+    },
+
+    /**
      * Return a selector for the hidden input for the BlockLinkField that will have JSON data
      * saved as its value
      *

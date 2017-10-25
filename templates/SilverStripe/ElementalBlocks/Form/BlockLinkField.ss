@@ -2,7 +2,10 @@
     <span class="align-self-center blocklinkfield__icon"></span>
     <span class="align-self-center blocklinkfield__content mr-auto d-flex justify-content-start">
         <% if $LinkDefined %>
-            <span class="mr-sm-5 blocklinkfield__title">$LinkText</span> <span class="blocklinkfield__link ml-2">$LinkRelativeUrl</span>
+            <% if $LinkText %>
+                <span class="blocklinkfield__title">$LinkText</span>
+            <% end_if %>
+            <span class="blocklinkfield__link">$LinkRelativeUrl</span>
         <% else %>
             <span class="blocklinkfield__content--message">
                 <%t SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.Empty "Empty" %>
