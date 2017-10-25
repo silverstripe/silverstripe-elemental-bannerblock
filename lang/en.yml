@@ -14,4 +14,8 @@ en:
       other: '{count} files'
     SINGULARNAME: file
   SilverStripe\ElementalBlocks\Form\BlockLinkField:
+    Description: 'Link description'
     Empty: Empty
+    LinkText: 'Link text'
+    SelectPage: 'Select a page'
+    TargetBlank: 'Open in a new window/tab'

@@ -67,14 +67,28 @@ class BlockLinkField extends FormField
     }
 
     /**
+     * Get the linked {@link SiteTree} object, if available
+     *
+     * @return SiteTree|null
+     */
+    public function getLinkPage()
+    {
+        $pageId = (int) $this->getParsedValue()->PageID;
+        if (!$pageId) {
+            return null;
+        }
+
+        return DataObject::get_by_id(SiteTree::class, $pageId);
+    }
+
+    /**
      * Get the relative URL for the linked {@link SiteTree} object, with a leading slash
      *
      * @return string
      */
     public function getLinkRelativeUrl()
     {
-        /** @var SiteTree $page */
-        $page = DataObject::get_by_id(SiteTree::class, $this->getParsedValue()->PageID);
+        $page = $this->getLinkPage();
 
         return $page ? '/' . ltrim($page->URLSegment, '/') : '';
     }
