@@ -74,4 +74,21 @@ class BlockLinkFieldTest extends SapphireTest
 
         $this->assertSame('', $this->field->getLinkRelativeUrl());
     }
+
+    public function testGetLinkTextIsTrimmed()
+    {
+        $this->field->setValue(json_encode([
+            'Text' => '     My text     ',
+        ]));
+
+        $this->assertSame('My text', $this->field->getLinkText());
+    }
+
+    public function testGetSetShowLinkText()
+    {
+        $this->assertTrue($this->field->getShowLinkText(), 'Default to showing the link text field');
+
+        $this->field->setShowLinkText(false);
+        $this->assertFalse($this->field->getShowLinkText(), 'Link text field can be disabled');
+    }
 }

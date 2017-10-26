@@ -42,6 +42,11 @@ class BannerBlock extends FileBlock
 
             // Set the height of the content fields
             $fields->fieldByName('Root.Main.Content')->setRows(5);
+
+            // Disable the link text field for the image link
+            /** @var BlockLinkField $imageLinkField */
+            $imageLinkField = $fields->fieldByName('Root.Main.ImageLink');
+            $imageLinkField->setShowLinkText(false);
         });
 
         // Ensure TinyMCE's javascript is loaded before the blocks overrides

@@ -17,6 +17,13 @@ class BlockLinkField extends FormField
      */
     protected $parsedValue;
 
+    /**
+     * Whether to show the "link text" field
+     *
+     * @var bool
+     */
+    protected $showLinkText = true;
+
     public function Type()
     {
         return 'blocklinkfield';
@@ -79,7 +86,7 @@ class BlockLinkField extends FormField
      */
     public function getLinkText()
     {
-        return $this->getParsedValue()->Text;
+        return trim($this->getParsedValue()->Text);
     }
 
     /**
@@ -100,5 +107,30 @@ class BlockLinkField extends FormField
     public function getLinkTargetBlank()
     {
         return (bool) $this->getParsedValue()->TargetBlank;
+    }
+
+    /**
+     * Set whether to display the link text field
+     *
+     * @param bool $showLinkText
+     * @return $this
+     */
+    public function setShowLinkText($showLinkText)
+    {
+        $this->showLinkText = (bool) $showLinkText;
+
+        $this->setAttribute('data-showlinktext', (int) $this->showLinkText);
+
+        return $this;
+    }
+
+    /**
+     * Get whether to display the link text field
+     *
+     * @return bool
+     */
+    public function getShowLinkText()
+    {
+        return $this->showLinkText;
     }
 }
