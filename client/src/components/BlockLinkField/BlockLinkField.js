@@ -19,7 +19,7 @@ const InjectedBlockLinkFieldActions = provideInjector(BlockLinkFieldActions);
  * context.
  */
 jQuery.entwine('ss', ($) => {
-  $('.form__field-holder .blocklinkfield').entwine({
+  $('.form__field-holder .block-link-field').entwine({
     /**
      * Get the dialog wrapper element selector
      *
@@ -72,24 +72,24 @@ jQuery.entwine('ss', ($) => {
      * to encourage the user to save the form to proceed with the new link data.
      */
     registerChange() {
-      this.find('.blocklinkfield__content')
+      this.find('.block-link-field__content')
         .empty()
         .append(
           $('<span/>')
-            .addClass('blocklinkfield__content--message')
+            .addClass('block-link-field__content--message')
             .text(i18n._t('BlockLinkField.ModifiedMessage', 'Changes will be visible upon save'))
         );
     },
   });
 
-  $('.js-injector-boot .blocklinkfield__actions').entwine({
+  $('.js-injector-boot .block-link-field__actions').entwine({
     /**
      * Get the BlockLinkField holder that owns the current actions popover
      *
      * @return {Object}
      */
     getLinkField() {
-      return this.parent('.blocklinkfield');
+      return this.parent('.block-link-field');
     },
 
     /**
@@ -98,7 +98,7 @@ jQuery.entwine('ss', ($) => {
      * @return {Object}
      */
     getLinkDataField() {
-      return this.getLinkField().find('input:hidden.blocklinkfield');
+      return this.getLinkField().find('input:hidden.block-link-field');
     },
 
     /**
@@ -320,7 +320,7 @@ jQuery.entwine('ss', ($) => {
      */
     updateFormField() {
       this.getLinkDataField()
-        .parent('div.blocklinkfield')
+        .parent('div.block-link-field')
         .registerChange();
     },
 

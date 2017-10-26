@@ -1,4 +1,4 @@
-.form__field-holder .blocklinkfield {
+.form__field-holder .block-link-field {
   box-shadow: none;
   -webkit-box-shadow: none;
 
@@ -8,7 +8,7 @@
   }
 }
 
-.blocklinkfield__icon::before {
+.block-link-field__icon::before {
   content: "2"; // font-icon-link
   font-family: silverstripe;
   font-size: $font-size-lg * 1.2;
@@ -17,22 +17,22 @@
   position: relative;
 }
 
-.blocklinkfield__content--message {
+.block-link-field__content--message {
   font-style: italic;
 }
 
-.blocklinkfield__link {
+.block-link-field__link {
   color: $link-color;
 }
 
 // xs devices only
-.blocklinkfield__title {
+.block-link-field__title {
   margin-right: $spacer;
 }
 
 // sm devices and up
 @media (min-width: map-get($grid-breakpoints, sm)) {
-  .blocklinkfield__title {
+  .block-link-field__title {
     margin-right: ($spacer * 5);
   }
 }
