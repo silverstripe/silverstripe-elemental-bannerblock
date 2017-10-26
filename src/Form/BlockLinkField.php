@@ -26,7 +26,7 @@ class BlockLinkField extends FormField
 
     public function Type()
     {
-        return 'blocklinkfield';
+        return 'block-link-field';
     }
 
     /**

@@ -24,7 +24,7 @@ class BlockLinkFieldTest extends SapphireTest
 
     public function testHasUniqueFormFieldSelector()
     {
-        $this->assertContains('blocklinkfield', $this->field->Type());
+        $this->assertContains('block-link-field', $this->field->Type());
     }
 
     public function testGetParsedValue()
