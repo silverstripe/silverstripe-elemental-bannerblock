@@ -38,6 +38,7 @@ const config = [
     name: 'css',
     entry: {
       bundle: `${PATHS.SRC}/styles/bundle.scss`,
+      'frontend-default': `${PATHS.SRC}/styles/frontend-default.scss`,
     },
     output: {
       path: PATHS.DIST,

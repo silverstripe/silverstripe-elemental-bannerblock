@@ -2,17 +2,19 @@
 
 namespace SilverStripe\ElementalBlocks\Block;
 
+use SilverStripe\CMS\Model\SiteTree;
+use SilverStripe\Core\Convert;
 use SilverStripe\ElementalBlocks\Form\BlockLinkField;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
+use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
 
 class BannerBlock extends FileBlock
 {
     private static $db = [
         'Content' => 'HTMLText',
-        'ImageLink' => 'Link',
         'CallToActionLink' => 'Link',
     ];
 
@@ -29,24 +31,14 @@ class BannerBlock extends FileBlock
     {
         $this->beforeUpdateCMSFields(function (FieldList $fields) {
             // Remove default scaffolded relationship fields
-            $fields->removeByName('ImageLinkID');
             $fields->removeByName('CallToActionLinkID');
 
             // Move the file upload field to be before the content
             $upload = $fields->fieldByName('Root.Main.File');
             $fields->insertBefore('Content', $upload);
 
-            // Move the Image Link to underneath the file upload field
-            $imageLink = $fields->fieldByName('Root.Main.ImageLink');
-            $fields->insertBefore('Content', $imageLink);
-
             // Set the height of the content fields
             $fields->fieldByName('Root.Main.Content')->setRows(5);
-
-            // Disable the link text field for the image link
-            /** @var BlockLinkField $imageLinkField */
-            $imageLinkField = $fields->fieldByName('Root.Main.ImageLink');
-            $imageLinkField->setShowLinkText(false);
         });
 
         // Ensure TinyMCE's javascript is loaded before the blocks overrides
@@ -55,5 +47,37 @@ class BannerBlock extends FileBlock
         Requirements::css('silverstripe/elemental-blocks:client/dist/styles/bundle.css');
 
         return parent::getCMSFields();
+    }
+
+    /**
+     * For the frontend, return a parsed set of data for use in templates
+     *
+     * @return ArrayData|null
+     */
+    public function CallToActionLink()
+    {
+        return $this->decodeLinkData($this->getField('CallToActionLink'));
+    }
+
+    /**
+     * Given a set of JSON data, decode it, attach the relevant Page object and return as ArrayData
+     *
+     * @param string $linkJson
+     * @return ArrayData|null
+     */
+    protected function decodeLinkData($linkJson)
+    {
+        if (!$linkJson) {
+            return;
+        }
+
+        $data = ArrayData::create(Convert::json2obj($linkJson));
+
+        // Link page, if selected
+        if ($data->PageID) {
+            $data->setField('Page', self::get_by_id(SiteTree::class, $data->PageID));
+        }
+
+        return $data;
     }
 }
