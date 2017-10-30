@@ -13,7 +13,7 @@
     $Content
 
     <%-- Add a CallToActionLink if available --%>
-    <% if $CallToActionLink %>
+    <% if $CallToActionLink.Page.Link %>
         <div class="banner-element__call-to-action-container">
         <% with $CallToActionLink %>
             <a href="{$Page.Link}" class="banner-element__call-to-action"
