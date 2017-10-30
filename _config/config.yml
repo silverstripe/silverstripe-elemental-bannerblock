@@ -4,3 +4,7 @@ Name: elementalblocksconfig
 SilverStripe\Core\Injector\Injector:
   Link:
     class: SilverStripe\ElementalBlocks\ORM\FieldType\DBLink
+
+DNADesign\Elemental\Controllers\ElementController:
+  default_styles:
+    - silverstripe/elemental-blocks:client/dist/styles/frontend-default.css

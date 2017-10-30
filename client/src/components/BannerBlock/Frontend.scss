@@ -1,0 +1,40 @@
+// Some standard default styles for the frontend of a BannerBlock
+.silverstripe__elementalblocks__block__bannerblock {
+  position: relative;
+  width: 100%;
+  display: flex;
+  max-height: 200px;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-element__image {
+  background-color: #eee;
+  display: flex;
+  flex-grow: 1;
+  height: 200px;
+
+  img {
+    border: none;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+.banner-element__content {
+  position: absolute;
+  width: 90%;
+}
+
+.banner-element__call-to-action {
+  padding: 10px;
+  background: red;
+  color: white !important;
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 10px;
+
+  &:hover {
+    border: none !important;
+  }
+}
