@@ -6,7 +6,7 @@
 [![Version](http://img.shields.io/packagist/v/silverstripe/elemental-blocks.svg?style=flat)](https://packagist.org/packages/silverstripe/elemental-blocks)
 [![License](http://img.shields.io/packagist/l/silverstripe/elemental-blocks.svg?style=flat)](LICENSE.md)
 
-This repository contains a base set of CMS content blocks for the [silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental.git) module.
+This repository contains a base set of CMS content blocks for the [silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) module.
 
 ## Installation
 
@@ -16,9 +16,33 @@ Install using Composer:
 composer require silverstripe/elemental-blocks 1.0.x-dev
 ```
 
+Once complete, run `dev/build` from your browser, or command line via `vendor/bin/sake dev/build`.
+
+## Requirements
+
+* SilverStripe CMS ^4.0
+* Elemental ^2.0
+
 ## Documentation
 
-See the [docs/en](docs/en) folder.
+More a more in-depth overview of using the blocks in this module, see the [user guide documentation](docs/en).
+
+## Customising templates
+
+The blocks in this module follow the [BEM (Block Element Modifier])](http://getbem.com/) CSS class naming system, and
+should provide a WCAG 2.0 compliant template markup for your project's accessibility standard.
+
+If you do need to modify the templates, copy the appropriate template into `mysite/templates` or your custom theme, and
+adjust as necessary. If doing so ensure that you match the folder structure (PHP class namespace) to ensure that your
+customised template is given priority over the defaults.
+
+For more information see [templates in the developer documentation](https://docs.silverstripe.org/en/4/developer_guides/templates/).
+
+## Translations
+
+The translations for this project are managed via [Transifex](https://www.transifex.com/silverstripe/silverstripe-elemental-blocks)
+and are updated automatically during the release process. To contribute, please head to the link above and get
+translating!
 
 ## Versioning
 
@@ -28,4 +52,4 @@ All methods, with `public` visibility, are part of the public API. All other met
 
 ## Reporting Issues
 
-Please [create an issue](http://github.com/silverstripe/silverstripe-elemental-blocks/issues) for any bugs you've found, or features you're missing.
+Please [create an issue](http://github.com/silverstripe/silverstripe-elemental-blocks/issues/new) for any bugs you've found.
