@@ -60,6 +60,19 @@ class BannerBlock extends FileBlock
     }
 
     /**
+     * Add the banner content instead of the image title
+     *
+     * {@inheritDoc}
+     */
+    public function getSummary()
+    {
+        if ($this->File() && $this->File()->exists()) {
+            return $this->getSummaryThumbnail() . $this->dbObject('Content')->Summary(20);
+        }
+        return '';
+    }
+
+    /**
      * Given a set of JSON data, decode it, attach the relevant Page object and return as ArrayData
      *
      * @param string $linkJson
