@@ -77,6 +77,7 @@ class BlockLinkFieldActions extends Component {
         <PopoverField
           id={this.props.id}
           popoverClassName="block-link-field-actions__menu"
+          className="btn-sm"
           buttonSize="md"
           data={{ placement: 'bottom' }}
           container={this.props.container}

@@ -1,0 +1,25 @@
+SilverStripe\Assets\Folder:
+  folder1:
+    Name: folder
+
+SilverStripe\Assets\File:
+  file1:
+    Title: Some file
+    FileFilename: folder/helloworld.txt
+    Parent: =>SilverStripe\Assets\Folder.folder1
+    Name: helloworld.txt
+
+SilverStripe\Assets\Image:
+  image1:
+    Title: Some image
+    FileFilename: folder/ss-logo.png
+    Parent: =>SilverStripe\Assets\Folder.folder1
+    Name: ss-logo.png
+
+SilverStripe\ElementalBlocks\Block\FileBlock:
+  with_image:
+    Title: A block with an image
+    File: =>SilverStripe\Assets\Image.image1
+  with_file:
+    Title: A block with a file
+    File: =>SilverStripe\Assets\File.file1
