@@ -13,6 +13,8 @@ use SilverStripe\View\Requirements;
 
 class BannerBlock extends FileBlock
 {
+    private static $icon = 'font-icon-block-banner';
+
     private static $db = [
         'Content' => 'HTMLText',
         'CallToActionLink' => 'Link',
