@@ -82,7 +82,7 @@ class BannerBlock extends FileBlock
      */
     protected function decodeLinkData($linkJson)
     {
-        if (!$linkJson) {
+        if (!$linkJson || $linkJson === 'null') {
             return;
         }
 
