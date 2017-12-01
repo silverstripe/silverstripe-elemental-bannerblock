@@ -24,6 +24,8 @@ class FileBlock extends BaseElement
 
     private static $icon = 'font-icon-block-file';
 
+    private static $table_name = 'S_EB_FileBlock';
+
     public function getType()
     {
         return _t(__CLASS__ . '.BlockType', 'File');
