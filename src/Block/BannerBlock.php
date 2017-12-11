@@ -24,6 +24,8 @@ class BannerBlock extends FileBlock
 
     private static $plural_name = 'banners';
 
+    private static $table_name = 'S_EB_BannerBlock';
+
     public function getType()
     {
         return _t(__CLASS__ . '.BlockType', 'Banner');
