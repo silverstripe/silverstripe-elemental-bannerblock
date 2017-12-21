@@ -1,10 +1,10 @@
 <%-- Display the image (File) --%>
-<span class="banner-element__image">
-    <% if $File %>
+<% if $File %>
+    <span class="banner-element__image">
         $File
-    <% end_if %>
-</span>
-
+    </span>
+    
+<% end_if %>
 <div class="banner-element__content">
     <% if $Title && $ShowTitle %>
         <h2 class="banner-element__title">$Title</h2>
