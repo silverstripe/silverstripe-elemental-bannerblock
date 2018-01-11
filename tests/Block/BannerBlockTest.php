@@ -21,7 +21,7 @@ class BannerBlockTest extends SapphireTest
         $javascript = Requirements::backend()->getJavascript();
 
         // Ensure TinyMCE's scripts are loaded first
-        $mcePath = TinyMCEConfig::get('cms')->getScriptURL();
+        $mcePath = TinyMCEConfig::get()->getScriptURL();
         $this->assertArrayHasKey($mcePath, $javascript, 'TinyMCE is loaded first');
 
         // By pushing the bundle reference again, the size of the requirements shouldn't change

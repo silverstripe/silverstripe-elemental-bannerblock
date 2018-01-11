@@ -4,9 +4,7 @@ namespace SilverStripe\ElementalBlocks\Block;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Convert;
-use SilverStripe\ElementalBlocks\Form\BlockLinkField;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\HiddenField;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
@@ -46,7 +44,7 @@ class BannerBlock extends FileBlock
         });
 
         // Ensure TinyMCE's javascript is loaded before the blocks overrides
-        Requirements::javascript(TinyMCEConfig::get('cms')->getScriptURL());
+        Requirements::javascript(TinyMCEConfig::get()->getScriptURL());
         Requirements::javascript('silverstripe/elemental-blocks:client/dist/js/bundle.js');
         Requirements::css('silverstripe/elemental-blocks:client/dist/styles/bundle.css');
 
