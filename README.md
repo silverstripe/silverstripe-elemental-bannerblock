@@ -3,8 +3,6 @@
 [![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-elemental-blocks.svg?style=flat)](https://travis-ci.org/silverstripe/silverstripe-elemental-blocks)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-blocks/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-blocks/?branch=master)
 [![codecov](https://codecov.io/gh/silverstripe/silverstripe-elemental-blocks/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-elemental-blocks)
-[![Version](http://img.shields.io/packagist/v/silverstripe/elemental-blocks.svg?style=flat)](https://packagist.org/packages/silverstripe/elemental-blocks)
-[![License](http://img.shields.io/packagist/l/silverstripe/elemental-blocks.svg?style=flat)](LICENSE.md)
 
 This repository contains a base set of CMS content blocks for the [silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) module.
 
@@ -25,15 +23,15 @@ Once complete, run `dev/build` from your browser, or command line via `vendor/bi
 
 ## Documentation
 
-More a more in-depth overview of using the blocks in this module, see the [user guide documentation](docs/en).
+An in-depth overview of using the blocks in this module will be added shortly.
 
 ## Customising templates
 
-The blocks in this module follow the [BEM (Block Element Modifier])](http://getbem.com/) CSS class naming system, and
+The blocks in this module follow the [BEM (Block Element Modifier)](http://getbem.com/) CSS class naming system, and
 should provide a WCAG 2.0 compliant template markup for your project's accessibility standard.
 
 If you do need to modify the templates, copy the appropriate template into `mysite/templates` or your custom theme, and
-adjust as necessary. If doing so ensure that you match the folder structure (PHP class namespace) to ensure that your
+adjust as necessary. If doing so, ensure that you match the folder structure (PHP class namespace) to ensure that your
 customised template is given priority over the defaults.
 
 For more information see [templates in the developer documentation](https://docs.silverstripe.org/en/4/developer_guides/templates/).
