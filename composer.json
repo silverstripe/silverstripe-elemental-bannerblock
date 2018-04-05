@@ -12,7 +12,7 @@
     "prefer-stable": true,
     "require": {
         "silverstripe/vendor-plugin": "^1.0",
-        "dnadesign/silverstripe-elemental": "2.x-dev",
+        "dnadesign/silverstripe-elemental": "^2.0",
         "silverstripe/cms": "^4.0",
         "silverstripe/assets": "^1.0"
     },
