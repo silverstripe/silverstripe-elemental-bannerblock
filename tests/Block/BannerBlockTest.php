@@ -1,10 +1,10 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\Tests\Block;
+namespace SilverStripe\ElementalBannerBlock\Tests\Block;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\ElementalBlocks\Block\BannerBlock;
+use SilverStripe\ElementalBannerBlock\Block\BannerBlock;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\View\ArrayData;
 use SilverStripe\View\Requirements;
@@ -26,7 +26,7 @@ class BannerBlockTest extends SapphireTest
 
         // By pushing the bundle reference again, the size of the requirements shouldn't change
         $this->assertNotEmpty($javascript);
-        Requirements::javascript('silverstripe/elemental-blocks:client/dist/js/bundle.js');
+        Requirements::javascript('silverstripe/elemental-bannerblock:client/dist/js/bundle.js');
         $this->assertSame(
             count($javascript),
             count(Requirements::backend()->getJavascript()),

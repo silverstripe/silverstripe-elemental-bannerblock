@@ -1,11 +1,11 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\Tests\Form;
+namespace SilverStripe\ElementalBannerBlock\Tests\Form;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\ElementalBlocks\Form\BlockLinkField;
-use SilverStripe\ElementalBlocks\Form\BlockLinkField_Readonly;
+use SilverStripe\ElementalBannerBlock\Form\BlockLinkField;
+use SilverStripe\ElementalBannerBlock\Form\BlockLinkField_Readonly;
 use SilverStripe\Forms\CheckboxField_Readonly;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\TextField;

@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[silverstripe-elemental-blocks.master]
+[silverstripe-elemental-bannerblock.master]
 file_filter = lang/<lang>.yml
 source_file = lang/en.yml
 source_lang = en

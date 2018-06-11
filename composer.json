@@ -1,6 +1,6 @@
 {
-    "name": "silverstripe/elemental-blocks",
-    "description": "A collection of CMS blocks for the silverstripe-elemental module",
+    "name": "silverstripe/elemental-bannerblock",
+    "description": "A banner block for the silverstripe-elemental module",
     "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",
@@ -12,9 +12,8 @@
     "prefer-stable": true,
     "require": {
         "silverstripe/vendor-plugin": "^1.0",
-        "dnadesign/silverstripe-elemental": "^2.0",
-        "silverstripe/cms": "^4.0",
-        "silverstripe/assets": "^1.0"
+        "silverstripe/elemental-fileblock": "^1.0",
+        "silverstripe/cms": "^4.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
@@ -30,8 +29,8 @@
     },
     "autoload": {
         "psr-4": {
-            "SilverStripe\\ElementalBlocks\\": "src/",
-            "SilverStripe\\ElementalBlocks\\Tests\\": "tests/"
+            "SilverStripe\\ElementalBannerBlock\\": "src/",
+            "SilverStripe\\ElementalBannerBlock\\Tests\\": "tests/"
         }
     }
 }

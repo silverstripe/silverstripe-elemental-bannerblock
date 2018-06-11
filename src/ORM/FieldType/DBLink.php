@@ -1,8 +1,8 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\ORM\FieldType;
+namespace SilverStripe\ElementalBannerBlock\ORM\FieldType;
 
-use SilverStripe\ElementalBlocks\Form\BlockLinkField;
+use SilverStripe\ElementalBannerBlock\Form\BlockLinkField;
 use SilverStripe\ORM\FieldType\DBText;
 
 /**

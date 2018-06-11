@@ -1,19 +1,12 @@
 en:
-  SilverStripe\ElementalBlocks\Block\BannerBlock:
+  SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Banner
     PLURALNAME: banners
     PLURALS:
       one: 'A banner'
       other: '{count} banners'
     SINGULARNAME: banner
-  SilverStripe\ElementalBlocks\Block\FileBlock:
-    BlockType: File
-    PLURALNAME: files
-    PLURALS:
-      one: 'A file'
-      other: '{count} files'
-    SINGULARNAME: file
-  SilverStripe\ElementalBlocks\Form\BlockLinkField:
+  SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Link description'
     Empty: Empty
     LinkText: 'Link text'

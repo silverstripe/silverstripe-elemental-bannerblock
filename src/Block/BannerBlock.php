@@ -1,9 +1,10 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\Block;
+namespace SilverStripe\ElementalBannerBlock\Block;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Convert;
+use SilverStripe\ElementalFileBlock\Block\FileBlock;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\View\ArrayData;
@@ -45,8 +46,8 @@ class BannerBlock extends FileBlock
 
         // Ensure TinyMCE's javascript is loaded before the blocks overrides
         Requirements::javascript(TinyMCEConfig::get()->getScriptURL());
-        Requirements::javascript('silverstripe/elemental-blocks:client/dist/js/bundle.js');
-        Requirements::css('silverstripe/elemental-blocks:client/dist/styles/bundle.css');
+        Requirements::javascript('silverstripe/elemental-bannerblock:client/dist/js/bundle.js');
+        Requirements::css('silverstripe/elemental-bannerblock:client/dist/styles/bundle.css');
 
         return parent::getCMSFields();
     }

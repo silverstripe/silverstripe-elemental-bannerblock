@@ -1,11 +1,11 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\Tests\ORM\FieldType;
+namespace SilverStripe\ElementalBannerBlock\Tests\ORM\FieldType;
 
 use SilverStripe\Core\Injector\Injector;
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\ElementalBlocks\Form\BlockLinkField;
-use SilverStripe\ElementalBlocks\ORM\FieldType\DBLink;
+use SilverStripe\ElementalBannerBlock\Form\BlockLinkField;
+use SilverStripe\ElementalBannerBlock\ORM\FieldType\DBLink;
 
 class DBLinkTest extends SapphireTest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\Form;
+namespace SilverStripe\ElementalBannerBlock\Form;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Convert;

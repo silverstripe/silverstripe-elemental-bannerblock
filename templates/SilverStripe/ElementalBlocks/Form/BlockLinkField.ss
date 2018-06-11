@@ -8,7 +8,7 @@
             <span class="block-link-field__link">$LinkRelativeUrl</span>
         <% else %>
             <span class="block-link-field__content--message">
-                <%t SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.Empty "Empty" %>
+                <%t SilverStripe\\ElementalBannerBlock\\Form\\BlockLinkField.Empty "Empty" %>
             </span>
         <% end_if %>
     </span>

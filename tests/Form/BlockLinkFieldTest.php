@@ -1,10 +1,10 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\Tests\Form;
+namespace SilverStripe\ElementalBannerBlock\Tests\Form;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\SapphireTest;
-use SilverStripe\ElementalBlocks\Form\BlockLinkField;
+use SilverStripe\ElementalBannerBlock\Form\BlockLinkField;
 use SilverStripe\View\ArrayData;
 
 class BlockLinkFieldTest extends SapphireTest

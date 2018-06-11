@@ -1,10 +1,10 @@
 ---
-Name: elementalblocksconfig
+Name: elementalbannerblockconfig
 ---
 SilverStripe\Core\Injector\Injector:
   Link:
-    class: SilverStripe\ElementalBlocks\ORM\FieldType\DBLink
+    class: SilverStripe\ElementalBannerBlock\ORM\FieldType\DBLink
 
 DNADesign\Elemental\Controllers\ElementController:
   default_styles:
-    - silverstripe/elemental-blocks:client/dist/styles/frontend-default.css
+    - silverstripe/elemental-bannerblock:client/dist/styles/frontend-default.css

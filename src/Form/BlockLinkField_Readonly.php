@@ -1,6 +1,6 @@
 <?php
 
-namespace SilverStripe\ElementalBlocks\Form;
+namespace SilverStripe\ElementalBannerBlock\Form;
 
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Forms\CheckboxField_Readonly;
@@ -27,7 +27,7 @@ class BlockLinkField_Readonly extends ReadonlyField
 
         $fields->push(
             TreeDropdownField::create($name . '_PageID', null, SiteTree::class)
-                ->setTitle(_t('SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.SelectPage', 'Select a page'))
+                ->setTitle(_t('SilverStripe\\ElementalBannerBlock\\Form\\BlockLinkField.SelectPage', 'Select a page'))
                 ->setValue($originalField->getParsedValue()->PageID)
                 ->performReadonlyTransformation()
         );
@@ -36,7 +36,7 @@ class BlockLinkField_Readonly extends ReadonlyField
             $fields->push(
                 $this->castedCopy(TextField::class)
                     ->setName($name . '_Text')
-                    ->setTitle(_t('SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.LinkText', 'Link text'))
+                    ->setTitle(_t('SilverStripe\\ElementalBannerBlock\\Form\\BlockLinkField.LinkText', 'Link text'))
                     ->setValue($originalField->getLinkText())
             );
         }
@@ -44,16 +44,19 @@ class BlockLinkField_Readonly extends ReadonlyField
         $fields->push(
             $this->castedCopy(TextField::class)
                 ->setName($name . '_Description')
-                ->setTitle(_t('SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.Description', 'Link description'))
+                ->setTitle(
+                    _t('SilverStripe\\ElementalBannerBlock\\Form\\BlockLinkField.Description', 'Link description')
+                )
                 ->setValue($originalField->getLinkDescription())
         );
 
         $fields->push(
             $this->castedCopy(CheckboxField_Readonly::class)
                 ->setName($name . '_TargetBlank')
-                ->setTitle(
-                    _t('SilverStripe\\ElementalBlocks\\Form\\BlockLinkField.TargetBlank', 'Open in a new window/tab')
-                )
+                ->setTitle(_t(
+                    'SilverStripe\\ElementalBannerBlock\\Form\\BlockLinkField.TargetBlank',
+                    'Open in a new window/tab'
+                ))
                 ->setValue($originalField->getLinkTargetBlank())
         );
 
