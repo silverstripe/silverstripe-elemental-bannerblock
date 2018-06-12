@@ -1,4 +1,4 @@
-# SilverStripe Elemental Blocks
+# SilverStripe Elemental Banner Block
 
 [![Build Status](http://img.shields.io/travis/silverstripe/silverstripe-elemental-bannerblock.svg?style=flat)](https://travis-ci.org/silverstripe/silverstripe-elemental-bannerblock)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-bannerblock/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-bannerblock/?branch=master)
@@ -20,10 +20,6 @@ Once complete, run `dev/build` from your browser, or command line via `vendor/bi
 
 * SilverStripe CMS ^4.2
 * Elemental ^3.0
-
-## Documentation
-
-An in-depth overview of using the blocks in this module will be added shortly.
 
 ## Translations
 
