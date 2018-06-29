@@ -3,7 +3,7 @@
   position: relative;
   width: 100%;
   display: flex;
-  max-height: 200px;
+  height: 200px;
   align-items: center;
   justify-content: center;
 }
@@ -24,7 +24,6 @@
 .banner-element__content {
   left: 40px;
   position: absolute;
-  top: 40px;
   width: 90%;
 }
 
