@@ -51,8 +51,7 @@ class BlockLinkFieldActions extends Component {
     const children = this.props.actions.map((action) => {
       const className = classnames(
         'block-link-field__action',
-        'btn',
-        'btn-secondary',
+        'dropdown-item',
         action.className || '',
       );
 
@@ -70,20 +69,17 @@ class BlockLinkFieldActions extends Component {
     if (!children.length) {
       return null;
     }
-    const { PopoverField } = this.props;
+    const { ActionMenu } = this.props;
 
     return (
       <div className="block-link-field-actions fieldholder-small input-group">
-        <PopoverField
+        <ActionMenu
           id={this.props.id}
-          popoverClassName="block-link-field-actions__menu"
-          className="btn-sm"
-          buttonSize="md"
-          data={{ placement: 'bottom' }}
+          className="block-link-field-actions__menu"
           container={this.props.container}
         >
           {children}
-        </PopoverField>
+        </ActionMenu>
       </div>
     );
   }
@@ -100,19 +96,19 @@ BlockLinkFieldActions.propTypes = {
     canApply: React.PropTypes.func,
     confirm: React.PropTypes.func,
   })),
-  PopoverField: React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.func]),
+  ActionMenu: React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.func]),
 };
 
 BlockLinkFieldActions.defaultProps = {
   id: '',
   actions: [],
-  PopoverField: null,
+  ActionMenu: null,
 };
 
 export { BlockLinkFieldActions as Component };
 
 export default inject(
-  ['PopoverField'],
-  (PopoverField) => ({ PopoverField }),
+  ['ActionMenu'],
+  (ActionMenu) => ({ ActionMenu }),
   () => 'BlockLinkFieldActions'
 )(BlockLinkFieldActions);
