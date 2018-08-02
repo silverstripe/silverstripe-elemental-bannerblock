@@ -76,6 +76,18 @@ class BannerBlock extends FileBlock
     }
 
     /**
+     * Return content summary for summary section of ElementEditor
+     *
+     * @return array
+     */
+    public function getBlockSchema()
+    {
+        $blockSchema = parent::getBlockSchema();
+        $blockSchema['content'] = $this->dbObject('Content')->Summary(20);
+        return $blockSchema;
+    }
+
+    /**
      * Given a set of JSON data, decode it, attach the relevant Page object and return as ArrayData
      *
      * @param string $linkJson
