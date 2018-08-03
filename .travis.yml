@@ -4,7 +4,7 @@ dist: trusty
 
 env:
   global:
-    - COMPOSER_ROOT_VERSION="1.x-dev"
+    - COMPOSER_ROOT_VERSION="2.x-dev"
 
 matrix:
   include:
@@ -22,7 +22,7 @@ before_script:
   - phpenv config-rm xdebug.ini
 
   - if [[ $DB == PGSQL ]]; then composer require --prefer-dist --no-update silverstripe/postgresql 2.1.x-dev; fi
-  - composer require --prefer-dist --no-update silverstripe/installer:4.2.x-dev
+  - composer require --prefer-dist --no-update silverstripe/installer:4.x-dev
   - composer update
 
 script:
