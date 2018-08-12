@@ -80,9 +80,9 @@ class BannerBlock extends FileBlock
      *
      * @return array
      */
-    public function getBlockSchema()
+    protected function provideBlockSchema()
     {
-        $blockSchema = parent::getBlockSchema();
+        $blockSchema = parent::provideBlockSchema();
         $blockSchema['content'] = $this->dbObject('Content')->Summary(20);
         return $blockSchema;
     }
