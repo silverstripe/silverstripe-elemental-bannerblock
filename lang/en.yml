@@ -3,8 +3,9 @@ en:
     BlockType: Banner
     PLURALNAME: banners
     PLURALS:
-      one: 'A banner'
+      one: A banner
       other: '{count} banners'
+
     SINGULARNAME: banner
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Link description'
