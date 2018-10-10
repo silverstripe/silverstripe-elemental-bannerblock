@@ -8,3 +8,7 @@ SilverStripe\Core\Injector\Injector:
 DNADesign\Elemental\Controllers\ElementController:
   default_styles:
     - silverstripe/elemental-bannerblock:client/dist/styles/frontend-default.css
+
+SilverStripe\Admin\LeftAndMain:
+  extra_requirements_javascript:
+    - 'silverstripe/elemental-bannerblock:client/dist/js/bundle.js'

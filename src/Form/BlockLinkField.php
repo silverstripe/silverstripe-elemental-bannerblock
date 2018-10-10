@@ -10,6 +10,11 @@ use SilverStripe\View\ArrayData;
 
 class BlockLinkField extends FormField
 {
+    protected $schemaDataType = FormField::SCHEMA_DATA_TYPE_CUSTOM;
+
+    protected $schemaComponent = 'BlockLinkFieldComponent';
+
+
     /**
      * Cache for parsed value
      *
