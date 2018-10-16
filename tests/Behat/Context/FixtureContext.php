@@ -7,10 +7,6 @@ use SilverStripe\Assets\Image;
 use SilverStripe\BehatExtension\Context\FixtureContext as BaseFixtureContext;
 use SilverStripe\ElementalBannerBlock\Block\BannerBlock;
 
-if (!class_exists(BaseFixtureContext::class)) {
-    return;
-}
-
 /**
  * Context used to create fixtures in the SilverStripe ORM.
  */

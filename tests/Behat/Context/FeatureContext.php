@@ -2,13 +2,9 @@
 namespace SilverStripe\ElementalBannerBlock\Tests\Behat\Context;
 
 use Behat\Mink\Element\NodeElement;
-use DNADesign\Elemental\Tests\Behat\Context\FeatureContext as ElementalFeatureContext;
+use DNADesign\Elemental\Tests\Behat\Context\FeatureContext as BaseFeatureContext;
 
-if (!class_exists(ElementalFeatureContext::class)) {
-    return;
-}
-
-class FeatureContext extends ElementalFeatureContext
+class FeatureContext extends BaseFeatureContext
 {
     /**
      * @Then /^I should( not |\s+)see the thumbnail image for block (\d+)$/i
