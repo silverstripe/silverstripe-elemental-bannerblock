@@ -1,3 +1,4 @@
+@unsavedChanges
 @javascript
 Feature: View types of elements in a report
   As a CMS user
