@@ -25,6 +25,8 @@ class BannerBlock extends FileBlock
 
     private static $table_name = 'S_EB_BannerBlock';
 
+    private static $inline_editable = false;
+
     public function getType()
     {
         return _t(__CLASS__ . '.BlockType', 'Banner');
@@ -41,7 +43,8 @@ class BannerBlock extends FileBlock
             $fields->insertBefore('Content', $upload);
 
             // Set the height of the content fields
-            $fields->fieldByName('Root.Main.Content')->setRows(5);
+            $fields->removeByName('File');
+            $fields->fieldByName('Root.Main.Content')->setRows(1);
         });
 
         // Ensure TinyMCE's javascript is loaded before the blocks overrides

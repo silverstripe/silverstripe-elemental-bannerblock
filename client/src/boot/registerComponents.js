@@ -1,10 +1,10 @@
 import Injector from 'lib/Injector';
-import BlockLinkFieldComponent from 'components/BlockLinkField/BlockLinkFieldComponent';
+import BlockLinkField from 'components/BlockLinkField/BlockLinkField';
 import BlockLinkFieldActions from 'components/BlockLinkFieldActions/BlockLinkFieldActions';
 
 export default () => {
   Injector.component.registerMany({
-    BlockLinkFieldComponent,
-    BlockLinkFieldActions
+    BlockLinkField,
+    BlockLinkFieldActions,
   });
 };

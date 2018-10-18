@@ -15,7 +15,7 @@
   height: 200px;
 
   img {
-    border: none;
+    border: 0;
     object-fit: cover;
     width: 100%;
   }
@@ -36,6 +36,6 @@
   margin-bottom: 10px;
 
   &:hover {
-    border: none !important;
+    border: 0 !important;
   }
 }

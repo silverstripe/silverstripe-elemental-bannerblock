@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "A collection of CMS blocks for the silverstripe-elemental module",
   "scripts": {
-    "build": "yarn && NODE_ENV=production webpack -p --bail --progress",
+    "build": "yarn && yarn lint && yarn test && NODE_ENV=production webpack -p --bail --progress",
+    "dev": "NODE_ENV=development webpack --progress",
     "watch": "yarn && NODE_ENV=development webpack --watch --progress",
     "css": "WEBPACK_CHILD=css npm run build",
     "lint": "eslint client/src; sass-lint -v"
@@ -26,8 +27,10 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "jquery": "^3.2.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "prop-types": "^15.6.2",
+    "react": "15.3.1",
+    "react-dom": "15.3.1",
+    "reactstrap": "^5.0.0-beta"
   },
   "devDependencies": {
     "@silverstripe/webpack-config": "^0.4.0",

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { inject } from 'lib/Injector';
+import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import { DropdownItem } from 'reactstrap';
+import { inject } from 'lib/Injector';
 
 class BlockLinkFieldActions extends Component {
   constructor(props) {
@@ -22,6 +24,8 @@ class BlockLinkFieldActions extends Component {
    * @returns {Promise|null}
    */
   handleChangeValue(event) {
+    event.stopPropagation();
+
     let promise = null;
 
     // Make sure a valid option has been selected.
@@ -42,41 +46,42 @@ class BlockLinkFieldActions extends Component {
     } else {
       promise = option.callback() || Promise.resolve();
     }
-
     return promise;
   }
 
   render() {
+    const { id, actions, ActionMenu } = this.props;
+
     // eslint-disable-next-line arrow-body-style
-    const children = this.props.actions.map((action) => {
+    const children = actions.map((action) => {
       const className = classnames(
         'block-link-field__action',
         'dropdown-item',
         action.className || '',
       );
 
-      return (<button
-        type="button"
-        className={className}
-        key={action.value}
-        onClick={this.handleChangeValue}
-        value={action.value}
-      >
-        {action.label}
-      </button>);
+      return (
+        <DropdownItem
+          type="button"
+          className={className}
+          key={action.value}
+          onClick={this.handleChangeValue}
+          value={action.value}
+        >
+          {action.label}
+        </DropdownItem>
+      );
     }).filter(item => item);
 
     if (!children.length) {
       return null;
     }
-    const { ActionMenu } = this.props;
 
     return (
       <div className="block-link-field-actions fieldholder-small input-group">
         <ActionMenu
-          id={this.props.id}
+          id={id}
           className="block-link-field-actions__menu"
-          container={this.props.container}
         >
           {children}
         </ActionMenu>
@@ -86,17 +91,17 @@ class BlockLinkFieldActions extends Component {
 }
 
 BlockLinkFieldActions.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  actions: React.PropTypes.arrayOf(React.PropTypes.shape({
-    value: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
-    className: React.PropTypes.string,
-    destructive: React.PropTypes.bool,
-    callback: React.PropTypes.func,
-    canApply: React.PropTypes.func,
-    confirm: React.PropTypes.func,
+  id: PropTypes.string.isRequired,
+  actions: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    destructive: PropTypes.bool,
+    callback: PropTypes.func,
+    canApply: PropTypes.func,
+    confirm: PropTypes.func,
   })),
-  ActionMenu: React.PropTypes.oneOfType([React.PropTypes.node, React.PropTypes.func]),
+  ActionMenu: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 };
 
 BlockLinkFieldActions.defaultProps = {
