@@ -12,7 +12,7 @@ import { loadComponent } from 'lib/Injector';
  * context.
  */
 jQuery.entwine('ss', ($) => {
-  $('.js-injector-boot .form__field-holder .block-link-field').entwine({
+  $('.js-injector-boot .form__field-holder .block-link-field[data-useEntwine]').entwine({
     /**
      * Renders the equivalent React component for the BlockLinkField
      */

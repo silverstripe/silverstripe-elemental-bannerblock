@@ -36,10 +36,16 @@ class BlockLinkField extends Component {
   componentDidMount() {
     const { value } = this.props;
 
-    // See https://github.com/yannickcr/eslint-plugin-react/issues/1707
-    this.setState({ // eslint-disable-line
-      value: JSON.parse(value),
-    });
+    if (value) {
+      // See https://github.com/yannickcr/eslint-plugin-react/issues/1707
+      this.setState({ // eslint-disable-line
+        value: JSON.parse(value),
+      });
+    } else { // JSON.parse fails on an empty string which is not valid JSON
+      this.setState({ // eslint-disable-line
+        value: {},
+      });
+    }
   }
 
   /**
@@ -64,7 +70,7 @@ class BlockLinkField extends Component {
    * @returns {string}
    */
   getLinkRelativeUrl() {
-    const { linkedPage } = this.props;
+    const linkedPage = this.getLinkedPage();
 
     if (linkedPage) {
       // Remove leading slashes from the existing URLSegment
@@ -104,6 +110,22 @@ class BlockLinkField extends Component {
         }
       }
     });
+  }
+
+  /**
+   * Enables this implementation to work within the Entwine or React context, as FormbuilderLoader
+   * stores the linkedPage in data.
+   *
+   * @returns {string}
+   */
+  getLinkedPage() {
+    const { linkedPage } = this.props;
+
+    if (!linkedPage || !Object.values(linkedPage).length) {
+      return this.props.data.linkedPage;
+    }
+
+    return linkedPage;
   }
 
   /**
@@ -163,6 +185,11 @@ class BlockLinkField extends Component {
       value: formData,
     });
 
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(JSON.stringify(formData));
+    }
+
     // We rely on some page data like URLSegment which we won't have if the page has been
     // changed, so show a "save to continue" message
     this.registerChange();
@@ -192,7 +219,6 @@ class BlockLinkField extends Component {
    * @returns {DOMElement}
    */
   renderLinkContent() {
-    const { linkedPage } = this.props;
     const { isDirty, value } = this.state;
 
     const contentContainerClasses = classnames(
@@ -206,12 +232,14 @@ class BlockLinkField extends Component {
     if (isDirty) {
       return (
         <span className={contentContainerClasses}>
-          <span className="block-link-field__content--message">
+          <span className="block-link-field__content--message-modified">
             {i18n._t('BlockLinkField.ModifiedMessage', 'Changes will be visible upon save')}
           </span>
         </span>
       );
     }
+
+    const linkedPage = this.getLinkedPage();
 
     // Check that a page ID is set in the field value, and that the linkedPage data is
     // available as a prop
@@ -232,8 +260,8 @@ class BlockLinkField extends Component {
 
     return (
       <span className={contentContainerClasses}>
-        <span className="block-link-field__content--message">
-          {i18n._t('BlockLinkField.Empty', 'Empty')}
+        <span className="block-link-field__content--message-add-link">
+          {i18n._t('BlockLinkField.AddLinkMessage', 'Add link')}
         </span>
       </span>
     );
@@ -283,7 +311,7 @@ class BlockLinkField extends Component {
         role="button"
         tabIndex={0}
       >
-        <span className="align-self-center block-link-field__icon" />
+        <span className="block-link-field__icon" />
         {this.renderLinkContent()}
         {this.renderActions()}
 
@@ -303,6 +331,7 @@ BlockLinkField.propTypes = {
   extraClass: PropTypes.string,
   linkedPage: pageShape,
   showLinkText: PropTypes.bool,
+  onChange: PropTypes.func,
   title: PropTypes.string,
   value: PropTypes.string,
 };

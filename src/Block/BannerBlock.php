@@ -25,8 +25,6 @@ class BannerBlock extends FileBlock
 
     private static $table_name = 'S_EB_BannerBlock';
 
-    private static $inline_editable = false;
-
     public function getType()
     {
         return _t(__CLASS__ . '.BlockType', 'Banner');
