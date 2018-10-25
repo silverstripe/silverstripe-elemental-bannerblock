@@ -8,6 +8,11 @@ import classnames from 'classnames';
 import { createInsertLinkModal } from 'containers/InsertLinkModal/InsertLinkModal';
 import { inject, loadComponent } from 'lib/Injector';
 
+// Re-use the CMS page internal link form schema
+const formName = 'editorInternalLink';
+const sectionConfigKey = 'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
+const InjectedLinkModal = loadComponent(createInsertLinkModal(sectionConfigKey, formName));
+
 /**
  * BlockLinkField renders a summary of a link to another page on the current website, with a link
  * title, description and whether to open it in a new window or not. The form for this is rendered
@@ -73,8 +78,9 @@ class BlockLinkField extends Component {
     const linkedPage = this.getLinkedPage();
 
     if (linkedPage) {
+      const untrimmedSegment = linkedPage.URLSegment || linkedPage;
       // Remove leading slashes from the existing URLSegment
-      const trimmedSegment = linkedPage.URLSegment.replace(/^\/+/, '');
+      const trimmedSegment = untrimmedSegment.replace(/^\/+/, '');
       return `/${trimmedSegment}`;
     }
 
@@ -119,10 +125,10 @@ class BlockLinkField extends Component {
    * @returns {string}
    */
   getLinkedPage() {
-    const { linkedPage } = this.props;
+    const { linkedPage, data } = this.props;
 
-    if (!linkedPage || !Object.values(linkedPage).length) {
-      return this.props.data.linkedPage;
+    if (data && (!linkedPage || !Object.keys(linkedPage).length)) {
+      return data.linkedPage;
     }
 
     return linkedPage;
@@ -208,6 +214,10 @@ class BlockLinkField extends Component {
       actions: this.getActions(),
     };
 
+    if (!BlockLinkFieldActionsComponent) {
+      return null;
+    }
+
     return (
       <div className="block-link-field__actions">
         <BlockLinkFieldActionsComponent {...props} />
@@ -277,16 +287,11 @@ class BlockLinkField extends Component {
    * @returns {InsertLinkModal}
    */
   renderModal() {
-    const { title, showLinkText } = this.props;
+    const { title, showLinkText, InsertModalLinkComponent } = this.props;
     const { modalOpen, value } = this.state;
 
-    // Re-use the CMS page internal link form schema
-    const formName = 'editorInternalLink';
-    const sectionConfigKey = 'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
-    const InjectedLinkModal = loadComponent(createInsertLinkModal(sectionConfigKey, formName));
-
     return (
-      <InjectedLinkModal
+      <InsertModalLinkComponent
         isOpen={modalOpen}
         onInsert={this.handleSubmitModal}
         onClosed={this.handleCloseModal}
@@ -327,7 +332,7 @@ const pageShape = PropTypes.shape({
 });
 
 BlockLinkField.propTypes = {
-  BlockLinkFieldActionsComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
+  BlockLinkFieldActionsComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   extraClass: PropTypes.string,
   linkedPage: pageShape,
   showLinkText: PropTypes.bool,
@@ -340,6 +345,7 @@ BlockLinkField.defaultProps = {
   linkedPage: {},
   showLinkText: true,
   value: '{}',
+  InsertModalLinkComponent: InjectedLinkModal,
 };
 
 export { BlockLinkField as Component };
