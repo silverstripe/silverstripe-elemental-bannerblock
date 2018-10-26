@@ -2,7 +2,6 @@
 
 namespace SilverStripe\ElementalBannerBlock\Tests\Form;
 
-use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ElementalBannerBlock\Form\BlockLinkField;
 use SilverStripe\View\ArrayData;
@@ -48,24 +47,6 @@ class BlockLinkFieldTest extends SapphireTest
         $this->assertSame('baz', $result2->foo);
     }
 
-    public function testGetLinkMethods()
-    {
-        $this->assertFalse($this->field->getLinkDefined());
-
-        $this->field->setValue(json_encode([
-            'PageID' => $this->idFromFixture(SiteTree::class, 'a_page'),
-            'Text' => 'My link',
-            'Description' => 'Click here to see what happens next',
-            'TargetBlank' => true,
-        ]));
-
-        $this->assertTrue($this->field->getLinkDefined());
-        $this->assertSame('/my-page', $this->field->getLinkRelativeUrl());
-        $this->assertSame('My link', $this->field->getLinkText());
-        $this->assertSame('Click here to see what happens next', $this->field->getLinkDescription());
-        $this->assertTrue($this->field->getLinkTargetBlank());
-    }
-
     public function testGetLinkRelativeUrlReturnsEmptyStringOnInvalidPage()
     {
         $this->field->setValue(json_encode([
@@ -75,20 +56,26 @@ class BlockLinkFieldTest extends SapphireTest
         $this->assertSame('', $this->field->getLinkRelativeUrl());
     }
 
-    public function testGetLinkTextIsTrimmed()
-    {
-        $this->field->setValue(json_encode([
-            'Text' => '     My text     ',
-        ]));
-
-        $this->assertSame('My text', $this->field->getLinkText());
-    }
-
     public function testGetSetShowLinkText()
     {
         $this->assertTrue($this->field->getShowLinkText(), 'Default to showing the link text field');
 
         $this->field->setShowLinkText(false);
         $this->assertFalse($this->field->getShowLinkText(), 'Link text field can be disabled');
+    }
+
+    public function testGetAttributes()
+    {
+        $attributes = $this->field->getAttributes();
+        $this->assertArrayHasKey('data-schema', $attributes);
+        $this->assertArrayHasKey('data-state', $attributes);
+    }
+
+    public function testGetSchemaDataDefault()
+    {
+        $schemaDataDefaults = $this->field->getSchemaDataDefaults();
+        $this->assertArrayHasKey('showLinkText', $schemaDataDefaults['data']);
+        $this->assertArrayHasKey('linkedPage', $schemaDataDefaults['data']);
+        $this->assertArrayHasKey('title', $schemaDataDefaults['data']);
     }
 }

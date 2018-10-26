@@ -41,8 +41,7 @@ class BannerBlock extends FileBlock
             $fields->insertBefore('Content', $upload);
 
             // Set the height of the content fields
-            $fields->removeByName('File');
-            $fields->fieldByName('Root.Main.Content')->setRows(1);
+            $fields->fieldByName('Root.Main.Content')->setRows(5);
         });
 
         // Ensure TinyMCE's javascript is loaded before the blocks overrides
