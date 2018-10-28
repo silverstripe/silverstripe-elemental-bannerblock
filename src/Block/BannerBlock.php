@@ -87,7 +87,7 @@ class BannerBlock extends FileBlock
             return;
         }
 
-        $data = ArrayData::create(Convert::json2obj($linkJson));
+        $data = ArrayData::create(json_decode($linkJson));
 
         // Link page, if selected
         if ($data->PageID) {
