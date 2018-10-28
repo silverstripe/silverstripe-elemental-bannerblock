@@ -52,7 +52,7 @@ class BlockLinkField extends FormField
             return $this->parsedValue;
         }
 
-        $parsedValue = Convert::json2array($this->dataValue());
+        $parsedValue = json_decode($this->dataValue(), true);
         return $this->parsedValue = ArrayData::create((array) $parsedValue);
     }
 
