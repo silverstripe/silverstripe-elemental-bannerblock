@@ -1,4 +1,3 @@
-@unsavedChanges
 @javascript
 Feature: View types of elements in a report
   As a CMS user
@@ -26,48 +25,51 @@ Feature: View types of elements in a report
       And I should see "Alice's sample content" as the summary for block 1
       And I should see the thumbnail image for block 1
 
-    Scenario: I can add elements to the page
+  # The "unsaved changes" dialog causes errors unless this is tagged with "@unsavedChanges"
+  @unsavedChanges
+  Scenario: I can add elements to the page
     When I see a list of blocks
     Then I press the "Add block" button
       And I press the "Banner" button in the add block popover
-      And I wait 1 second
-      And I fill in "Additional Banner Block" for "Title"
-      And I fill in the "Content" HTML field with "<p>Additional sample content</p>"
-      And I press the "Add from files" button
-      And I select the file named "folder1" in the gallery
-      And I click on the file named "file1" in the gallery
-      And I press the "Insert" button
-      # Sometimes behat can be quicker than the time it takes the JS to remove the modal...
-      And I wait 1 second
-      And I press the "Create" button
-    Then I should see a "Saved banner" message
+      And I wait 5 second
+    Then I should see "Untitled Banner block" as the title for block 1
 
-    When I go to "/admin/pages/edit/show/6"
-      And I see a list of blocks
+    Given I click on block 1
+      And I fill in "Additional Banner Block" for "Title" for block 1
+      And I fill in "<p>Additional sample content</p>" for "Content" for block 1
+      # TODO Test adding files to a banner block via inline editing
+    When I press the "Save" button in the actions menu for block 1
+      And I wait 1 second
+    Then I should see a "Saved 'Additional Banner Block' successfully" notice
+
+    When I click on the caret button for block 1
+    Then I should see "Additional sample content"
+
+    When I see a list of blocks
       And I wait 1 second
     Then I should see "Additional Banner Block"
-      And I should see the thumbnail image for block 3
+    And I should see "Additional sample content"
 
-    Scenario: I can edit a block
+     # Uncomment the below once inline editing of files is enabled
+     # And I should see the thumbnail image for block 1
+
+  # The "unsaved changes" dialog causes errors unless this is tagged with "@unsavedChanges"
+  @unsavedChanges
+  Scenario: I can edit a block
     Given I see a list of blocks
       And I should see block 1
+      And I should see "Alice's Block" as the title for block 1
+      And I should see "Alice's sample content" as the summary for block 1
       And I click on block 1
-    Then I should see "Alice's Block"
-      And the "Content" field for block 1 should contain "Alice's sample content"
+     Then I should see the edit form for block 1
 
     Given I fill in "Eve's Block" for "Title" for block 1
-    Given I fill in "<p>New sample content</p>" for "Content" for block 1
+      And I fill in "<p>New sample content</p>" for "Content" for block 1
       And I wait 1 second
-      And I press the "Add from files" button
-      And I select the file named "folder1" in the gallery
-      And I click on the file named "file2" in the gallery
-      And I press the "Insert" button
-      # Sometimes behat can be quicker than the time it takes the JS to remove the modal...
-      And I wait 1 second
+      # TODO Test adding files to a banner block via inline editing
     When I press the "Save" button in the actions menu for block 1
       And I wait 1 second
     Then I should see a "Saved 'Eve's Block' successfully" notice
-#
 
   @modal
   Scenario: I can archive a block
@@ -77,7 +79,7 @@ Feature: View types of elements in a report
     When I press the "Archive" button
       And I see the text "Are you sure you want to send this block to the archive?" in the alert
       And I confirm the dialog
-      # Sometimes behat can be quicker than the time it takes the JS to remove the row...
+      # Sometimes Behat can be quicker than the time it takes the JS to remove the element...
       And I wait 1 second
       And I see a list of blocks
     Then I should see "Bob's Block"
@@ -86,6 +88,6 @@ Feature: View types of elements in a report
   Scenario: I can see the block type when I hover over an element's icon
     Given I wait until I see the ".element-editor__element" element
     When I hover over the icon of block 1
-      # Sometimes behat can be quicker than the time it takes the JS to render the tooltip...
+      # Sometimes Behat can be quicker than the time it takes the JS to render the tooltip...
       And I wait 1 second
     Then I should see text matching "Banner"

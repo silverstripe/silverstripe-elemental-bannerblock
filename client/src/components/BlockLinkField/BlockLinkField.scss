@@ -17,11 +17,12 @@
   position: relative;
 }
 
-.block-link-field__content--message {
+.block-link-field__content--message-modified {
   font-style: italic;
 }
 
-.block-link-field__link {
+.block-link-field__link,
+.block-link-field__content--message-add-link {
   color: $link-color;
 }
 

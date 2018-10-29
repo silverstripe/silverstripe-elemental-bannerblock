@@ -37,7 +37,7 @@ before_script:
 
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --prefer-dist --no-update silverstripe/postgresql 2.1.x-dev; fi
-  - composer require --no-update silverstripe/recipe-testing:^1 silverstripe/installer:4.x-dev
+  - composer require --no-update silverstripe/recipe-testing:^1 silverstripe/installer:4.3.x-dev
   - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
   # Behat bootstrapping

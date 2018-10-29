@@ -1,340 +1,359 @@
-import jQuery from 'jquery';
-import i18n from 'i18n';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import BlockLinkFieldActions from 'components/BlockLinkFieldActions/BlockLinkFieldActions';
+/* global window */
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import fieldHolder from 'components/FieldHolder/FieldHolder';
 import CONSTANTS from 'constants/index';
-import { provideInjector } from 'lib/Injector';
+import i18n from 'i18n';
+import classnames from 'classnames';
+import { createInsertLinkModal } from 'containers/InsertLinkModal/InsertLinkModal';
+import { inject, loadComponent } from 'lib/Injector';
 
-const dialogWrapperClass = 'insert-link__dialog-wrapper';
-const internalDialogId = 'insert-link__dialog-wrapper--internal';
-const noTinyMceClass = `${internalDialogId}-no-tinymce`;
-const InjectedBlockLinkFieldActions = provideInjector(BlockLinkFieldActions);
+// Re-use the CMS page internal link form schema
+const formName = 'editorInternalLink';
+const sectionConfigKey = 'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
+const InjectedLinkModal = loadComponent(createInsertLinkModal(sectionConfigKey, formName));
 
 /**
- * The BlockLinkField allows you to add arbitrary links to a content block. They will be
- * condensed into a BlockLinkField form field, which triggers an "insert link" modal popup.
- *
- * This logic layers on top of TinyMCE_sslink-internal.js to work outside of the TinyMCE
- * context.
+ * BlockLinkField renders a summary of a link to another page on the current website, with a link
+ * title, description and whether to open it in a new window or not. The form for this is rendered
+ * using an InsertLinkModal component
  */
-jQuery.entwine('ss', ($) => {
-  $('.form__field-holder .block-link-field').entwine({
-    /**
-     * Get the dialog wrapper element selector
-     *
-     * @return {Object}
-     */
-    getDialogWrapper() {
-      return $(`#${internalDialogId}`);
-    },
+class BlockLinkField extends Component {
+  constructor(props) {
+    super(props);
 
-    /**
-     * Create a dialog wrapper element if one doesn't exist already
-     */
-    createDialog() {
-      let dialog = this.getDialogWrapper();
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleKeyUp = this.handleKeyUp.bind(this);
+    this.handleSubmitModal = this.handleSubmitModal.bind(this);
 
-      if (!dialog.length) {
-        dialog = $(`<div id="${internalDialogId}" />`)
-          .addClass(dialogWrapperClass);
+    this.state = {
+      isDirty: false,
+      modalOpen: false,
+      value: {},
+    };
+  }
 
-        $('body').append(dialog);
+  /**
+   * When the component is mounted, parse the input value (provided as JSON) and store it
+   * in local state as a structured object.
+   */
+  componentDidMount() {
+    const { value } = this.props;
+
+    if (value) {
+      // See https://github.com/yannickcr/eslint-plugin-react/issues/1707
+      this.setState({ // eslint-disable-line
+        value: JSON.parse(value),
+      });
+    } else { // JSON.parse fails on an empty string which is not valid JSON
+      this.setState({ // eslint-disable-line
+        value: {},
+      });
+    }
+  }
+
+  /**
+   * @returns {string}
+   */
+  getClassNames() {
+    const { extraClass } = this.props;
+
+    return classnames(
+      'form-control',
+      'd-flex',
+      'justify-content-start',
+      'p-2',
+      'align-items-center',
+      extraClass,
+    );
+  }
+
+  /**
+   * Returns the relative URL for the linked page, if one is set, with a leading slash
+   *
+   * @returns {string}
+   */
+  getLinkRelativeUrl() {
+    const linkedPage = this.getLinkedPage();
+
+    if (linkedPage) {
+      const untrimmedSegment = linkedPage.URLSegment || linkedPage;
+      // Remove leading slashes from the existing URLSegment
+      const trimmedSegment = untrimmedSegment.replace(/^\/+/, '');
+      return `/${trimmedSegment}`;
+    }
+
+    return '';
+  }
+
+  /**
+   * Returns a list of the actions for the "more actions" menu, including a callback
+   * to perform when clicked.
+   *
+   * @returns {Object[]}
+   */
+  getActions() {
+    return CONSTANTS.LINK_ACTIONS.map((action) => {
+      if (action.callback) {
+        return action;
       }
-    },
 
-    /**
-     * Instantiate the "insert link" dialog when a BlockLinkField is added to a page
-     */
-    onmatch() {
-      this.createDialog();
-    },
-
-    /**
-     * Trigger an "insert link" dialog, outside of TinyMCE context
-     */
-    onclick(e) {
-      // Don't interfere with buttons default behaviour inside the container
-      if (!$(e.target).is('button')) {
-        const linkName = this.attr('name');
-
-        this.getDialogWrapper()
-          .addClass(noTinyMceClass)
-          .data('datafield-name', linkName)
-          .renderModal(true);
-
-        $(`#${internalDialogId}`).updateModalTitle($(this).find(`#${linkName}_Title`).val());
-      }
-    },
-
-    /**
-     * Registering a change will replace the BlockLinkField content with a holding message
-     * to encourage the user to save the form to proceed with the new link data.
-     */
-    registerChange() {
-      this.find('.block-link-field__content')
-        .empty()
-        .append(
-          $('<span/>')
-            .addClass('block-link-field__content--message')
-            .text(i18n._t('BlockLinkField.ModifiedMessage', 'Changes will be visible upon save'))
-        );
-    },
-  });
-
-  $('.js-injector-boot .block-link-field__actions').entwine({
-    /**
-     * Get the BlockLinkField holder that owns the current actions popover
-     *
-     * @return {Object}
-     */
-    getLinkField() {
-      return this.parent('.block-link-field');
-    },
-
-    /**
-     * Get the hidden JSON data field from the containing BlockLinkField
-     *
-     * @return {Object}
-     */
-    getLinkDataField() {
-      return this.getLinkField().find('input:hidden.block-link-field');
-    },
-
-    /**
-     * If the BlockLinkField has some data set, render the actions popover to allow users
-     * to clear it.
-     */
-    onmatch() {
-      const data = JSON.parse(this.getLinkDataField().val());
-
-      if (data && typeof data.PageID !== 'undefined') {
-        this.renderActionsMenu();
-      }
-    },
-
-    /**
-     * Gather the actions for the popover menu and render it
-     */
-    renderActionsMenu() {
-      const actions = CONSTANTS.LINK_ACTIONS.map((action) => {
-        if (action.callback) {
+      switch (action.value) {
+        case 'clear': {
+          return {
+            ...action,
+            callback: () => {
+              // Clear the field value
+              this.setState({
+                value: {},
+              });
+            }
+          };
+        }
+        default: {
           return action;
         }
-
-        switch (action.value) {
-          case 'clear': {
-            return {
-              ...action,
-              callback: () => {
-                // Remove the hidden JSON data object
-                this.getLinkDataField().val('{}');
-
-                // Register a change on the field, switching the content to a holding message
-                this.getLinkField().registerChange();
-
-                // Close the popover
-                this.remove();
-                $(`#${this.find('.btn').attr('aria-controls')}`).remove();
-              }
-            };
-          }
-          default: {
-            return action;
-          }
-        }
-      });
-
-      ReactDOM.render(
-        <InjectedBlockLinkFieldActions
-          id={`${this.getLinkDataField().attr('name')}_Popover`}
-          actions={actions}
-          container={this.closest('form')[0]}
-        />,
-        this[0]
-      );
-    },
-  });
-
-  $(`#${internalDialogId}`).entwine({
-    /**
-     * Decide whether the dialog was triggered from TinyMCE or outside
-     *
-     * @return {Boolean}
-     */
-    isTinyMce() {
-      return !this.hasClass(noTinyMceClass);
-    },
-
-    /**
-     * Show the "link text" field if the BlockLinkField has had setShowLinkText(true). This
-     * is used for call to action links, for example, but not for image links.
-     *
-     * @return {Boolean}
-     */
-    getRequireLinkText() {
-      if (this.isTinyMce()) {
-        return this._super();
       }
+    });
+  }
 
-      const linkDataField = this.getLinkDataField();
-      if (typeof linkDataField === 'undefined'
-        || typeof linkDataField.data('showlinktext') === 'undefined'
-      ) {
-        return true;
-      }
+  /**
+   * Enables this implementation to work within the Entwine or React context, as FormbuilderLoader
+   * stores the linkedPage in data.
+   *
+   * @returns {string}
+   */
+  getLinkedPage() {
+    const { linkedPage, data } = this.props;
 
-      // Refer to BlockLinkField::setShowLinkText for data attribute name
-      return !!+linkDataField.data('showlinktext');
-    },
-
-    /**
-     * Return a selector for the hidden input for the BlockLinkField that will have JSON data
-     * saved as its value
-     *
-     * @return {Object}
-     */
-    getLinkDataField() {
-      const fieldName = this.data('datafield-name');
-      return $(`input[name="${fieldName}"]`);
-    },
-
-    /**
-     * Get, parse and return the JSON data from the link data field if available
-     *
-     * @return {Object}
-     */
-    getDataFromLinkField() {
-      const dataField = this.getLinkDataField();
-      let linkData = {};
-
-      if (typeof dataField !== 'undefined') {
-        try {
-          linkData = JSON.parse(dataField.val());
-        } catch (e) {
-          // no-op
-        }
-      }
-
-      if (!linkData) {
-        linkData = {};
-      }
-
-      return linkData;
-    },
-
-    /**
-     * Given a set of posted form data, find the link data field and set the data to it
-     * as JSON
-     *
-     * @param {Object} data
-     */
-    setDataToLinkField(data) {
-      const dataField = this.getLinkDataField();
-
-      if (!dataField) {
-        return;
-      }
-
-      // Filter out keys that the field isn't interested in
-      const tempObj = {};
-      const linkData = Object.keys(data)
-        .filter(key => ['PageID', 'Anchor', 'Text', 'Description', 'TargetBlank'].includes(key))
-        .reduce((obj, key) => {
-          tempObj[key] = data[key];
-          return tempObj;
-        }, {});
-
-      dataField.val(JSON.stringify(linkData));
-    },
-
-    /**
-     * Get the modal title selector. The core API doesn't allow title to be dynamic yet, so we
-     * can use this selector to modify it ourselves.
-     *
-     * @return {Object}
-     */
-    getModalTitle() {
-      return $(`.modal.${internalDialogId}`).find('.modal-title');
-    },
-
-    /**
-     * Update the modal title with the BlockLinkField's form field title
-     *
-     * @param {String} newTitle
-     */
-    updateModalTitle(newTitle) {
-      this.getModalTitle().text(newTitle);
-    },
-
-    /**
-     * Retrieve the link data from the JSON serialised hidden input for the current link.
-     *
-     * @return {Object}
-     */
-    getLinkAttributes() {
-      const fieldData = this.getDataFromLinkField();
-
-      return {
-        PageID: fieldData.PageID || 0,
-        Anchor: fieldData.Anchor || '',
-        Text: fieldData.Text || '',
-        Description: fieldData.Description || '',
-        TargetBlank: fieldData.TargetBlank || false,
-      };
-    },
-
-    /**
-     * If the trigger was an BlockLinkField (not TinyMCE) then call method to set it to the
-     * field, close the dialog and return the promise.
-     *
-     * @param {Object} data - Posted data
-     * @return {Object}
-     */
-    handleInsert(data) {
-      if (this.isTinyMce()) {
-        return this._super(data);
-      }
-
-      this.setDataToLinkField(data);
-      this.close();
-
-      return Promise.resolve();
-    },
-
-    /**
-     * If the trigger was outside of TinyMCE, use the link attributes instead of the default
-     * TinyMCE attributes.
-     *
-     * @return {Object}
-     */
-    getOriginalAttributes() {
-      if (this.isTinyMce()) {
-        return this._super();
-      }
-      return this.getLinkAttributes();
-    },
-
-    /**
-     * Update the form field labels, etc
-     */
-    updateFormField() {
-      this.getLinkDataField()
-        .parent('div.block-link-field')
-        .registerChange();
-    },
-
-    /**
-     * Remove the "no tinymce" class from the dialog when closing, to allow TinyMCE triggered
-     * link dialogs to function as normal.
-     */
-    close() {
-      const parentReturn = this._super();
-
-      this.removeClass(noTinyMceClass);
-      this.updateFormField();
-
-      return parentReturn;
+    if (data && (!linkedPage || !Object.keys(linkedPage).length)) {
+      return data.linkedPage;
     }
-  });
+
+    return linkedPage;
+  }
+
+  /**
+   * When changed, we shouldn't show the content any longer, but show a message instead
+   */
+  registerChange() {
+    this.setState({
+      isDirty: true,
+    });
+  }
+
+  /**
+   * Triggers the insert link modal to open
+   */
+  handleClick(event) {
+    if (event.target.type !== 'button') {
+      this.setState({
+        modalOpen: true,
+      });
+    }
+  }
+
+  /**
+   * If pressing enter key, trigger click event
+   *
+   * @param {Object} event
+   */
+  handleKeyUp(event) {
+    if (event.keyCode === 13) {
+      this.handleClick(event);
+    }
+  }
+
+  /**
+   * Triggers the insert link modal to close
+   */
+  handleCloseModal() {
+    this.setState({
+      modalOpen: false,
+    });
+  }
+
+  /**
+   * Handles the insert link modal form submission
+   *
+   * @param {Object} data The submitted link information
+   */
+  handleSubmitModal(data) {
+    const {
+      // Omit keys we don't need
+      SecurityID, // eslint-disable-line no-unused-vars
+      action_insert, // eslint-disable-line no-unused-vars
+      ...formData
+    } = data;
+
+    this.setState({
+      value: formData,
+    });
+
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(JSON.stringify(formData));
+    }
+
+    // We rely on some page data like URLSegment which we won't have if the page has been
+    // changed, so show a "save to continue" message
+    this.registerChange();
+
+    this.handleCloseModal();
+  }
+
+  /**
+   * @returns {BlockLinkFieldActionsComponent}
+   */
+  renderActions() {
+    const { BlockLinkFieldActionsComponent } = this.props;
+
+    const props = {
+      id: 'foo',
+      actions: this.getActions(),
+    };
+
+    if (!BlockLinkFieldActionsComponent) {
+      return null;
+    }
+
+    return (
+      <div className="block-link-field__actions">
+        <BlockLinkFieldActionsComponent {...props} />
+      </div>
+    );
+  }
+
+  /**
+   * @returns {DOMElement}
+   */
+  renderLinkContent() {
+    const { isDirty, value } = this.state;
+
+    const contentContainerClasses = classnames(
+      'align-self-center',
+      'block-link-field__content',
+      'mr-auto',
+      'd-flex',
+      'justify-content-start'
+    );
+
+    if (isDirty) {
+      return (
+        <span className={contentContainerClasses}>
+          <span className="block-link-field__content--message-modified">
+            {i18n._t('BlockLinkField.ModifiedMessage', 'Changes will be visible upon save')}
+          </span>
+        </span>
+      );
+    }
+
+    const linkedPage = this.getLinkedPage();
+
+    // Check that a page ID is set in the field value, and that the linkedPage data is
+    // available as a prop
+    if (value.PageID && linkedPage.URLSegment) {
+      return (
+        <span className={contentContainerClasses}>
+          {value.Text && (
+            <span className="block-link-field__title">
+              {value.Text}
+            </span>
+          )}
+          <span className="block-link-field__link">
+            {this.getLinkRelativeUrl()}
+          </span>
+        </span>
+      );
+    }
+
+    return (
+      <span className={contentContainerClasses}>
+        <span className="block-link-field__content--message-add-link">
+          {i18n._t('BlockLinkField.AddLinkMessage', 'Add link')}
+        </span>
+      </span>
+    );
+  }
+
+  /**
+   * Renders a modal to insert or edit a link to a page on the current website. The schema
+   * is re-used from the "insert internal link" modal from the CMS, primarily used in the
+   * TinyMCE WYSIWYG editor.
+   *
+   * Whether the modal is open or not is controlled by the `modalOpen` state value.
+   *
+   * @returns {InsertLinkModal}
+   */
+  renderModal() {
+    const { title, showLinkText, InsertModalLinkComponent } = this.props;
+    const { modalOpen, value } = this.state;
+
+    return (
+      <InsertModalLinkComponent
+        isOpen={modalOpen}
+        onInsert={this.handleSubmitModal}
+        onClosed={this.handleCloseModal}
+        title={title}
+        fileAttributes={value}
+        bodyClassName="modal__dialog"
+        identifier="Admin.InsertLinkInternalModal"
+        requireLinkText={showLinkText}
+      />
+    );
+  }
+
+  render() {
+    const { name } = this.props;
+    const { value } = this.state;
+
+    return (
+      <div
+        className={this.getClassNames()}
+        onClick={this.handleClick}
+        onKeyUp={this.handleKeyUp}
+        role="button"
+        tabIndex={0}
+      >
+        <span className="block-link-field__icon" />
+        {this.renderLinkContent()}
+        {this.renderActions()}
+
+        <input type="hidden" name={name} value={JSON.stringify(value)} />
+        {this.renderModal()}
+      </div>
+    );
+  }
+}
+
+const pageShape = PropTypes.shape({
+  URLSegment: PropTypes.string,
 });
+
+BlockLinkField.propTypes = {
+  BlockLinkFieldActionsComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  extraClass: PropTypes.string,
+  linkedPage: pageShape,
+  showLinkText: PropTypes.bool,
+  onChange: PropTypes.func,
+  title: PropTypes.string,
+  value: PropTypes.string,
+};
+
+BlockLinkField.defaultProps = {
+  linkedPage: {},
+  showLinkText: true,
+  value: '{}',
+  InsertModalLinkComponent: InjectedLinkModal,
+};
+
+export { BlockLinkField as Component };
+
+export default inject(
+  ['BlockLinkFieldActions'],
+  (BlockLinkFieldActionsComponent) => ({
+    BlockLinkFieldActionsComponent,
+  }),
+  () => 'ElementEditor.BlockLinkFieldComponent'
+)(fieldHolder(BlockLinkField));
