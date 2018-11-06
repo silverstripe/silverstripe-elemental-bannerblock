@@ -4,6 +4,10 @@ namespace SilverStripe\ElementalBannerBlock\Tests\Behat\Context;
 use Behat\Mink\Element\NodeElement;
 use DNADesign\Elemental\Tests\Behat\Context\FeatureContext as BaseFeatureContext;
 
+if (!class_exists(BaseFeatureContext::class)) {
+    return;
+}
+
 class FeatureContext extends BaseFeatureContext
 {
     /**
