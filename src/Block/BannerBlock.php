@@ -42,6 +42,9 @@ class BannerBlock extends FileBlock
 
             // Set the height of the content fields
             $fields->fieldByName('Root.Main.Content')->setRows(5);
+
+            $fields->fieldByName('Root.Main.CallToActionLink')
+                ->setTitle(_t(__CLASS__ . '.CallToActionTitle', 'Call to action link'));
         });
 
         // Ensure TinyMCE's javascript is loaded before the blocks overrides
@@ -99,7 +102,7 @@ class BannerBlock extends FileBlock
             return;
         }
 
-        $data = ArrayData::create(Convert::json2obj($linkJson));
+        $data = ArrayData::create(json_decode($linkJson));
 
         // Link page, if selected
         if ($data->PageID) {
