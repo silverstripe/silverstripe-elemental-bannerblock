@@ -12,15 +12,15 @@ This repository contains a "banner block" for the [silverstripe-elemental](https
 Install using Composer:
 
 ```
-composer require silverstripe/elemental-bannerblock 1.x-dev
+composer require silverstripe/elemental-bannerblock ^2.0
 ```
 
 Once complete, run `dev/build` from your browser, or command line via `vendor/bin/sake dev/build`.
 
 ## Requirements
 
-* SilverStripe CMS ^4.2
-* Elemental ^3.0
+* SilverStripe CMS ^4.3
+* Elemental ^4.0
 
 ## Translations
 
