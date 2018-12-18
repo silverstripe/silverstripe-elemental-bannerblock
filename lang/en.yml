@@ -1,7 +1,6 @@
 en:
   SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Banner
-    CallToActionTitle: 'Call to action link'
     PLURALNAME: banners
     PLURALS:
       one: 'A banner'
