@@ -3,12 +3,9 @@
 namespace SilverStripe\ElementalBannerBlock\Block;
 
 use SilverStripe\CMS\Model\SiteTree;
-use SilverStripe\Core\Convert;
 use SilverStripe\ElementalFileBlock\Block\FileBlock;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
 use SilverStripe\View\ArrayData;
-use SilverStripe\View\Requirements;
 
 class BannerBlock extends FileBlock
 {
@@ -46,11 +43,6 @@ class BannerBlock extends FileBlock
             $fields->fieldByName('Root.Main.CallToActionLink')
                 ->setTitle(_t(__CLASS__ . '.CallToActionTitle', 'Call to action link'));
         });
-
-        // Ensure TinyMCE's javascript is loaded before the blocks overrides
-        Requirements::javascript(TinyMCEConfig::get()->getScriptURL());
-        Requirements::javascript('silverstripe/elemental-bannerblock:client/dist/js/bundle.js');
-        Requirements::css('silverstripe/elemental-bannerblock:client/dist/styles/bundle.css');
 
         return parent::getCMSFields();
     }
