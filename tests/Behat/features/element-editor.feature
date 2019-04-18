@@ -1,8 +1,8 @@
 @javascript
-Feature: View types of elements in a report
+Feature: Manage banner blocks
   As a CMS user
-  I want to view a list of elements in the CMS
-  So that I can see which elements I have used on a page
+  I want to manage banner blocks in the CMS
+  So that I can add banners to my content block pages
 
   Background:
     Given I add an extension "DNADesign\Elemental\Extensions\ElementalPageExtension" to the "Page" class
@@ -31,7 +31,7 @@ Feature: View types of elements in a report
     When I see a list of blocks
     Then I press the "Add block" button
       And I press the "Banner" button in the add block popover
-      And I wait 5 second
+      And I wait 5 seconds
     Then I should see "Untitled Banner block" as the title for block 1
 
     Given I click on block 1
