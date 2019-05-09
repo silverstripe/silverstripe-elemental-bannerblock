@@ -1,0 +1,14 @@
+fi:
+  SilverStripe\ElementalBannerBlock\Block\BannerBlock:
+    BlockType: Banneri
+    PLURALNAME: bannerit
+    PLURALS:
+      one: Banneri
+      other: '{count} banneria'
+    SINGULARNAME: banneri
+  SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
+    Description: 'Linkin kuvaus'
+    Empty: Tyhjä
+    LinkText: Linkkiteksti
+    SelectPage: 'Valitse sivu'
+    TargetBlank: 'Avaa uudessa ikkunassa/välilehdellä'

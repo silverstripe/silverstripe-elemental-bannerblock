@@ -74,6 +74,34 @@ class BlockLinkField extends FormField
     }
 
     /**
+     * Get the link text/title
+     *
+     * @return string
+     */
+    public function getLinkText()
+    {
+        return trim($this->getParsedValue()->Text);
+    }
+    /**
+     * Get the link "description", used for titles or alt text
+     *
+     * @return string
+     */
+    public function getLinkDescription()
+    {
+        return $this->getParsedValue()->Description;
+    }
+    /**
+     * Get whether to open the link in a new window
+     *
+     * @return bool
+     */
+    public function getLinkTargetBlank()
+    {
+        return (bool) $this->getParsedValue()->TargetBlank;
+    }
+
+    /**
      * Get the relative URL for the linked {@link SiteTree} object, with a leading slash
      *
      * @return string

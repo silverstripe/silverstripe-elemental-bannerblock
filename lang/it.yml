@@ -1,14 +1,14 @@
-en:
+it:
   SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Banner
-    CallToActionTitle: 'Call to action link'
     PLURALNAME: banners
     PLURALS:
-      one: 'A banner'
+      one: 'Un banner'
       other: '{count} banners'
     SINGULARNAME: banner
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
-    Description: 'Link description'
-    LinkText: 'Link text'
-    SelectPage: 'Select a page'
-    TargetBlank: 'Open in a new window/tab'
+    Description: 'Descrizione del collegamento'
+    Empty: Vuoto
+    LinkText: 'Link al testo'
+    SelectPage: 'Seleziona una pagina'
+    TargetBlank: 'Apri in una nuova finestra/scheda'
