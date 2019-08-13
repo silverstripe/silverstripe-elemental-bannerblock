@@ -26,6 +26,8 @@ class BlockLinkField extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleSubmitModal = this.handleSubmitModal.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.componentDidUpdate = this.componentDidUpdate.bind(this);
 
     this.state = {
       isDirty: false,
@@ -34,22 +36,25 @@ class BlockLinkField extends Component {
     };
   }
 
+  componentDidMount() {
+    this.componentDidUpdate();
+  }
+
+
   /**
-   * When the component is mounted, parse the input value (provided as JSON) and store it
+   * When the component is updated, parse the input value (provided as JSON) and store it
    * in local state as a structured object.
    */
-  componentDidMount() {
-    const { value } = this.props;
+  componentDidUpdate() {
+    const valueStr = this.props.value;
+    const value = valueStr ? JSON.parse(valueStr) : {};
+    const stateValue = this.state.value;
+    const stateNeedUpdate = ['PageID', 'TargetBlank', 'Text', 'Description']
+      .some((key) => value[key] !== stateValue[key]);
 
-    if (value) {
-      // See https://github.com/yannickcr/eslint-plugin-react/issues/1707
-      this.setState({ // eslint-disable-line
-        value: JSON.parse(value),
-      });
-    } else { // JSON.parse fails on an empty string which is not valid JSON
-      this.setState({ // eslint-disable-line
-        value: {},
-      });
+    if (stateNeedUpdate) {
+        // See https://github.com/yannickcr/eslint-plugin-react/issues/1707
+        this.setState({value});// eslint-disable-line
     }
   }
 
@@ -108,6 +113,12 @@ class BlockLinkField extends Component {
               this.setState({
                 value: {},
               });
+
+              // Notify parent that the link has been cleared
+              const { onChange } = this.props;
+              if (onChange) {
+                onChange(JSON.stringify({ }));
+              }
             }
           };
         }
