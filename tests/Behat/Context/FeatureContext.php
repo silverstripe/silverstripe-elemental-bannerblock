@@ -3,6 +3,7 @@ namespace SilverStripe\ElementalBannerBlock\Tests\Behat\Context;
 
 use Behat\Mink\Element\NodeElement;
 use DNADesign\Elemental\Tests\Behat\Context\FeatureContext as BaseFeatureContext;
+use SilverStripe\BehatExtension\Context\MainContextAwareTrait;
 
 if (!class_exists(BaseFeatureContext::class)) {
     return;
@@ -10,6 +11,8 @@ if (!class_exists(BaseFeatureContext::class)) {
 
 class FeatureContext extends BaseFeatureContext
 {
+    use MainContextAwareTrait;
+
     /**
      * @Then /^I should( not |\s+)see the thumbnail image for block (\d+)$/i
      *
