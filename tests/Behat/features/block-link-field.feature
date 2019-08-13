@@ -9,8 +9,6 @@ Feature: Add link to banner block
       And a "image" "Uploads/folder1/file1.jpg"
       And a "page" "Blocks Page" with a "Alice's Block" banner element with "Alice's sample content" content
     Given I am logged in with "ADMIN" permissions
-      # Replace with 'And I click "Blocks Page" in the ".breadcrumbs-wrapper" element' once the ElementalArea refreshes,
-      # See https://github.com/dnadesign/silverstripe-elemental/issues/320
       And I go to "/admin/pages/edit/show/6"
       And I wait until I see the ".element-editor__element" element
     Then I should see "Alice's Block"

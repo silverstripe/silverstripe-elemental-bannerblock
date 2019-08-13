@@ -26,8 +26,6 @@ class BlockLinkField extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.handleKeyUp = this.handleKeyUp.bind(this);
     this.handleSubmitModal = this.handleSubmitModal.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.componentDidUpdate = this.componentDidUpdate.bind(this);
 
     this.state = {
       isDirty: false,
