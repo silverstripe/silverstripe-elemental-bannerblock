@@ -49,4 +49,36 @@ class FeatureContext extends BaseFeatureContext
 
         return $thumbnail;
     }
+
+    /**
+     * @Given /^I press the "([^"]*)" button in the actions? menu for call to action link in block (\d+)$/
+     */
+    public function stepIPressTheButtonInTheActionMenuForCallToActionLink($buttonName, $blockNumber)
+    {
+        $block = $this->getSpecificBlock($blockNumber);
+
+        // Check if the popover is open for the block
+        $popover = $block->find('css', '.block-link-field .action-menu__dropdown');
+        if (!$popover->isVisible()) {
+            $block->find('css', '.block-link-field .action-menu__toggle')->click();
+        }
+
+        $button = $popover->find('xpath', sprintf('/button[contains(text(), \'%s\')]', $buttonName));
+
+        assertNotNull($button, sprintf('Could not find button labelled "%s"', $buttonName));
+
+        $button->click();
+    }
+
+    /**
+     * @Then I should see a modal titled :title
+     * @param string $title
+     */
+    public function iShouldSeeAModalTitled($title)
+    {
+        $page = $this->getMainContext()->getSession()->getPage();
+        $modalTitle = $page->find('css', '[role=dialog] .modal-header > .modal-title');
+        assertNotNull($modalTitle, 'No modal on the page');
+        assertTrue($modalTitle->getText() == $title);
+    }
 }
