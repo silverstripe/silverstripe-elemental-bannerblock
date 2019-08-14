@@ -26,6 +26,8 @@ matrix:
       env: DB=MYSQL PHPUNIT_TEST=1
     - php: 7.2
       env: DB=MYSQL BEHAT_TEST=1
+    - php: 7.3
+      env: DB=MYSQL PHPUNIT_TEST=1 NPM_TEST=1
 
 before_script:
   # Extra $PATH
@@ -47,11 +49,18 @@ before_script:
   - if [[ $BEHAT_TEST ]]; then (chromedriver > artifacts/chromedriver.log 2>&1 &); fi
   - if [[ $BEHAT_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); fi
 
+  # Install NPM dependencies
+  - if [[ $NPM_TEST ]]; then nvm install && nvm use && npm install -g yarn && yarn install --network-concurrency 1 && (cd vendor/silverstripe/admin && yarn install --network-concurrency 1); fi
+
 script:
   - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit; fi
   - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml; fi
   - if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs src tests; fi
   - if [[ $BEHAT_TEST ]]; then vendor/bin/behat @elemental-bannerblock; fi
+  
+  - if [[ $NPM_TEST ]]; then yarn run build; fi
+  - if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client; fi
+  - if [[ $NPM_TEST ]]; then git diff --name-status --relative=client; fi
 
 after_success:
   - if [[ $PHPUNIT_COVERAGE_TEST ]]; then bash <(curl -s https://codecov.io/bash) -f coverage.xml; fi
