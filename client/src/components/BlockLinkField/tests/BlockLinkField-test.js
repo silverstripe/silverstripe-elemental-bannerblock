@@ -4,7 +4,7 @@
 import React from 'react';
 import { Component as BlockLinkField } from '../BlockLinkField';
 import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15.4/build/index';
+import Adapter from 'enzyme-adapter-react-16/build/index';
 import Injector from 'lib/Injector';
 
 Injector.load();
