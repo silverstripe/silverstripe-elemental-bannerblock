@@ -14,9 +14,10 @@ import { loadComponent } from 'lib/Injector';
 jQuery.entwine('ss', ($) => {
   $('.js-injector-boot .form__field-holder .block-link-field[data-useEntwine]').entwine({
     /**
-     * Renders the equivalent React component for the BlockLinkField
+     * Instantiate the "insert link" dialog when a BlockLinkField is added to a page and
+     * renders the equivalent React component for the BlockLinkField
      */
-    createReactComponent() {
+    onmatch() {
       const cmsContent = this.closest('.cms-content').attr('id');
       const context = (cmsContent)
         ? { context: cmsContent }
@@ -37,13 +38,6 @@ jQuery.entwine('ss', ($) => {
         <BlockLinkFieldComponent {...props} />,
         this[0]
       );
-    },
-
-    /**
-     * Instantiate the "insert link" dialog when a BlockLinkField is added to a page
-     */
-    onmatch() {
-      this.createReactComponent();
     },
 
     /**
