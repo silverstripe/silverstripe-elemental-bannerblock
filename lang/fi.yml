@@ -1,6 +1,7 @@
 fi:
   SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Banneri
+    CallToActionTitle: 'Call to action -linkki'
     PLURALNAME: bannerit
     PLURALS:
       one: Banneri
@@ -8,7 +9,6 @@ fi:
     SINGULARNAME: banneri
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Linkin kuvaus'
-    Empty: Tyhjä
     LinkText: Linkkiteksti
     SelectPage: 'Valitse sivu'
     TargetBlank: 'Avaa uudessa ikkunassa/välilehdellä'

@@ -1,6 +1,7 @@
 it:
   SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Banner
+    CallToActionTitle: ''
     PLURALNAME: banners
     PLURALS:
       one: 'Un banner'
@@ -8,7 +9,6 @@ it:
     SINGULARNAME: banner
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Descrizione del collegamento'
-    Empty: Vuoto
     LinkText: 'Link al testo'
     SelectPage: 'Seleziona una pagina'
     TargetBlank: 'Apri in una nuova finestra/scheda'
