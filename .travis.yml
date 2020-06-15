@@ -8,7 +8,7 @@ before_install:
 
 env:
   global:
-    - COMPOSER_ROOT_VERSION="2.x-dev"
+    - COMPOSER_ROOT_VERSION="2.1.x-dev"
     - DISPLAY=":99"
     - XVFBARGS=":99 -ac -screen 0 1024x768x16"
     - SS_BASE_URL="http://localhost:8080/"
@@ -35,7 +35,7 @@ before_script:
 
   - phpenv rehash
   - phpenv config-rm xdebug.ini
-  - echo 'memory_limit = 2048M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+  - echo 'memory_limit = 4096M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
   - composer validate
   - if [[ $DB == PGSQL ]]; then composer require --prefer-dist --no-update silverstripe/postgresql 2.1.x-dev; fi
@@ -57,7 +57,7 @@ script:
   - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml; fi
   - if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs src tests; fi
   - if [[ $BEHAT_TEST ]]; then vendor/bin/behat @elemental-bannerblock; fi
-  
+
   - if [[ $NPM_TEST ]]; then yarn run build; fi
   - if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client; fi
   - if [[ $NPM_TEST ]]; then git diff --name-status --relative=client; fi
