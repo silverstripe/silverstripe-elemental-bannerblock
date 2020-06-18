@@ -23,9 +23,9 @@ matrix:
     - php: 7.1
       env: DB=MYSQL PHPUNIT_TEST=1
     - php: 7.2
-      env: DB=MYSQL PHPUNIT_COVERAGE_TEST=1
-    - php: 7.3
       env: DB=MYSQL BEHAT_TEST=1
+    - php: 7.3
+      env: DB=MYSQL PHPUNIT_COVERAGE_TEST=1
     - php: 7.4
       env: DB=MYSQL PHPUNIT_TEST=1 NPM_TEST=1
 
@@ -38,8 +38,9 @@ before_script:
   - echo 'memory_limit = 4096M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
   - composer validate
-  - if [[ $DB == PGSQL ]]; then composer require --prefer-dist --no-update silverstripe/postgresql 2.1.x-dev; fi
-  - composer require --no-update silverstripe/recipe-testing:^1 silverstripe/installer:4.6.x-dev
+  - if [[ $DB == PGSQL ]]; then composer require --prefer-dist --no-update silverstripe/postgresql:^2; fi
+  - composer require --no-update silverstripe/recipe-testing:^1 silverstripe/installer:^4
+  - composer require --no-update sminnee/phpunit-mock-objects:^3
   - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
 
   # Behat bootstrapping
