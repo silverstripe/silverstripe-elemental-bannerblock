@@ -11,6 +11,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "php": ">=7.1.0",
         "silverstripe/vendor-plugin": "^1.0",
         "silverstripe/elemental-fileblock": "^2@dev",
         "silverstripe/cms": "^4.3",
