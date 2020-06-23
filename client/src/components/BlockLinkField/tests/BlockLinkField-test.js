@@ -4,7 +4,7 @@
 import React from 'react';
 import { Component as BlockLinkField } from '../BlockLinkField';
 import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-15.4/build/index';
+import Adapter from 'enzyme-adapter-react-16';
 import Injector from 'lib/Injector';
 
 Injector.load();
@@ -61,7 +61,6 @@ describe('BlockLinkField', () => {
         />
       );
 
-      expect(wrapper.instance().render()).toThrow();
       expect(wrapper.find('.block-link-field__icon')).toHaveLength(1);
       expect(wrapper.find('.block-link-field__content')).toHaveLength(1);
       expect(wrapper.find('.block-link-field__actions')).toHaveLength(0);

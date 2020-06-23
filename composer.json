@@ -13,7 +13,8 @@
     "require": {
         "silverstripe/vendor-plugin": "^1.0",
         "silverstripe/elemental-fileblock": "^2@dev",
-        "silverstripe/cms": "^4.3"
+        "silverstripe/cms": "^4.3",
+        "silverstripe/admin": "^1.7@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7",
