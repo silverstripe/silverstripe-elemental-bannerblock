@@ -191,8 +191,8 @@ class BlockLinkField extends Component {
   handleSubmitModal(data) {
     const {
       // Omit keys we don't need
-      SecurityID, // eslint-disable-line no-unused-vars
-      action_insert, // eslint-disable-line no-unused-vars
+      SecurityID,
+      action_insert, // eslint-disable-line camelcase
       ...formData
     } = data;
 

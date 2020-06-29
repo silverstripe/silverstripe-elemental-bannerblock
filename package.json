@@ -30,20 +30,21 @@
     "classnames": "^2.2.5",
     "jquery": "^3.5.0",
     "prop-types": "^15.6.2",
-    "react": "15.3.1",
-    "react-dom": "15.3.1",
+    "react": "^16.6.1",
+    "react-dom": "^16.6.1",
     "reactstrap": "^5.0.0-beta"
   },
   "devDependencies": {
-    "@silverstripe/webpack-config": "^0.4.0",
+    "@silverstripe/webpack-config": "^1.6.0",
+    "@silverstripe/eslint-config": "^0.0.5",
     "babel-core": "^6.24.1",
-    "babel-jest": "^20.0.3",
+    "babel-jest": "^23.6.0",
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.1",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-15.4": "^1.0.5",
+    "enzyme": "^3.6.0",
+    "enzyme-adapter-react-16": "^1.5.0",
     "eslint": "^4.6.1",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^12.0.0",
@@ -51,7 +52,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
-    "jest-cli": "^19.0.2",
+    "jest-cli": "^23.6.0",
     "webpack": "^2.6.1"
   },
   "jest": {
@@ -84,6 +85,6 @@
     ]
   },
   "engines": {
-    "node": "^6.x"
+    "node": "^10.x"
   }
 }
