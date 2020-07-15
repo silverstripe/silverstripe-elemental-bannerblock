@@ -31,4 +31,14 @@ class BannerBlockTest extends SapphireTest
         $this->assertInstanceOf(SiteTree::class, $result->Page);
         $this->assertSame('Link title text', $result->Description, 'Link attributes are available');
     }
+
+    public function testNullStringCallToActionLink()
+    {
+        // test that data incorrectly saved as a string 'null' is converted to null on get
+        // https://github.com/silverstripe/silverstripe-elemental-bannerblock/issues/30#issuecomment-555460856
+        $block = BannerBlock::create();
+        $block->CallToActionLink = 'null';
+        $block->write();
+        $this->assertNull($block->CallToActionLink());
+    }
 }
