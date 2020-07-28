@@ -48,7 +48,21 @@ class BannerBlock extends FileBlock
     }
 
     /**
-     * For the frontend, return a parsed set of data for use in templates
+     * Accessor for `CallToActionLink` i.e. $block->CallToActionLink
+     *
+     * @return string|null
+     */
+    public function getCallToActionLink()
+    {
+        // returns the value of the database column which is a json encoded string.
+        // If there is old data where null was mistakenly saved as a string 'null'
+        // then convert that to null
+        $callToActionLink = $this->getField('CallToActionLink');
+        return $callToActionLink === 'null' ? null : $callToActionLink;
+    }
+
+    /**
+     * Used for the frontend templates, returns a parsed set of data
      *
      * @return ArrayData|null
      */
@@ -90,6 +104,8 @@ class BannerBlock extends FileBlock
      */
     protected function decodeLinkData($linkJson)
     {
+        // $linkJson === 'null' is to fix a bug in older versioned of versioned-admin
+        // which saved <null> as 'null'
         if (!$linkJson || $linkJson === 'null') {
             return;
         }
