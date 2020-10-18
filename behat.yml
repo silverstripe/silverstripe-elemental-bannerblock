@@ -7,7 +7,7 @@ default:
   suites:
     elemental-bannerblock:
       paths:
-        - %paths.modules.elemental-bannerblock%/tests/Behat/features
+        - "%paths.modules.elemental-bannerblock%/tests/Behat/features"
       contexts:
         - SilverStripe\ElementalBannerBlock\Tests\Behat\Context\FeatureContext
         - SilverStripe\Framework\Tests\Behaviour\CmsFormsContext
@@ -16,10 +16,10 @@ default:
         - SilverStripe\BehatExtension\Context\LoginContext
         -
           SilverStripe\ElementalBannerBlock\Tests\Behat\Context\FixtureContext:
-            - %paths.modules.elemental-bannerblock%/tests/Behat/files
+            - "%paths.modules.elemental-bannerblock%/tests/Behat/files"
         -
           SilverStripe\Framework\Tests\Behaviour\ConfigContext:
-            - %paths.modules.elemental-bannerblock%/tests/Behat/config
+            - "%paths.modules.elemental-bannerblock%/tests/Behat/config"
   extensions:
     SilverStripe\BehatExtension\MinkExtension:
       default_session: facebook_web_driver
@@ -30,5 +30,5 @@ default:
       browser_name: chrome
     SilverStripe\BehatExtension\Extension:
       bootstrap_file: vendor/silverstripe/cms/tests/behat/serve-bootstrap.php
-      screenshot_path: %paths.base%/artifacts/screenshots
+      screenshot_path: "%paths.base%/artifacts/screenshots"
       retry_seconds: 4 # default is 2
