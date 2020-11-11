@@ -5,4 +5,4 @@ import:
 
 env:
   global:
-    - BEHAT_SUITE="@elemental-bannerblock"
+    - BEHAT_SUITE=elemental-bannerblock
