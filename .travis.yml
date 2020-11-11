@@ -1,84 +1,8 @@
-language: php
+version: ~> 1.0
 
-dist: xenial
-
-services:
-  - mysql
-  - postgresql
-  - xvfb
-
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-
-addons:
-  apt:
-    packages:
-      - tidy
-      - chromium-chromedriver
-      - chromium-browser
+import:
+  - silverstripe/silverstripe-travis-shared:config/provision/standard-jobs-range-behat-npm.yml
 
 env:
   global:
-    - COMPOSER_ROOT_VERSION="2.x-dev"
-    - TRAVIS_NODE_VERSION="10"
-    - DISPLAY=":99"
-    - XVFBARGS=":99 -ac -screen 0 1024x768x16"
-    - SS_BASE_URL="http://localhost:8080/"
-    - SS_ENVIRONMENT_TYPE="dev"
-
-matrix:
-  include:
-    - php: 7.1
-      env: DB=PGSQL PHPUNIT_COVERAGE_TEST=1 PHPUNIT_TEST=1
-    - php: 7.2
-      env: DB=MYSQL BEHAT_TEST=1
-    - php: 7.3
-      env: DB=MYSQL PHPUNIT_TEST=1
-    - php: 7.4
-      env: DB=MYSQL NPM_TEST=1 PHPUNIT_TEST=1
-
-before_script:
-  # Extra $PATH
-  - export PATH=/usr/lib/chromium-browser/:$PATH
-
-  - phpenv rehash
-  - phpenv config-rm xdebug.ini
-  - echo 'memory_limit = 4096M' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-
-  - composer validate
-  - if [[ $DB == PGSQL ]]; then composer require --prefer-dist --no-update silverstripe/postgresql:^2; fi
-  - composer require --no-update silverstripe/recipe-testing:^1 silverstripe/installer:^4
-  - composer require --no-update sminnee/phpunit-mock-objects:^3
-  - composer install --prefer-source --no-interaction --no-progress --no-suggest --optimize-autoloader --verbose --profile
-
-  # Remove preinstalled Chrome (google-chrome)
-  # this would conflict with our chromium-browser installation
-  # and its version is incompatible with chromium-chromedriver
-  - sudo apt-get remove -y --purge google-chrome-stable || true
-
-  # Behat bootstrapping
-  - if [[ $BEHAT_TEST ]]; then mkdir artifacts; fi
-  - if [[ $BEHAT_TEST ]]; then cp composer.lock artifacts/; fi
-  - if [[ $BEHAT_TEST ]]; then sh -e /etc/init.d/xvfb start; sleep 3; fi
-  - if [[ $BEHAT_TEST ]]; then (chromedriver > artifacts/chromedriver.log 2>&1 &); fi
-  - if [[ $BEHAT_TEST ]]; then (vendor/bin/serve --bootstrap-file vendor/silverstripe/cms/tests/behat/serve-bootstrap.php &> artifacts/serve.log &); fi
-
-  # Install NPM dependencies
-  - if [[ $NPM_TEST ]]; then nvm install && nvm use && npm install -g yarn && yarn install --network-concurrency 1 && (cd vendor/silverstripe/admin && yarn install --network-concurrency 1); fi
-
-script:
-  - if [[ $PHPUNIT_TEST ]]; then vendor/bin/phpunit; fi
-  - if [[ $PHPUNIT_COVERAGE_TEST ]]; then phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.xml; fi
-  - if [[ $PHPCS_TEST ]]; then vendor/bin/phpcs src tests; fi
-  - if [[ $BEHAT_TEST ]]; then vendor/bin/behat @elemental-bannerblock; fi
-
-  - if [[ $NPM_TEST ]]; then yarn run build; fi
-  - if [[ $NPM_TEST ]]; then git diff-files --quiet -w --relative=client; fi
-  - if [[ $NPM_TEST ]]; then git diff --name-status --relative=client; fi
-
-after_success:
-  - if [[ $PHPUNIT_COVERAGE_TEST ]]; then bash <(curl -s https://codecov.io/bash) -f coverage.xml; fi
-
-after_failure:
-  - if [[ $BEHAT_TEST ]]; then php ./vendor/silverstripe/framework/tests/behat/travis-upload-artifacts.php --if-env BEHAT_TEST,ARTIFACTS_BUCKET,ARTIFACTS_KEY,ARTIFACTS_SECRET --target-path $TRAVIS_REPO_SLUG/$TRAVIS_BUILD_ID/$TRAVIS_JOB_ID --artifacts-base-url https://s3.amazonaws.com/$ARTIFACTS_BUCKET/ --artifacts-path ./artifacts/; fi
+    - BEHAT_SUITE="elemental-bannerblock"
