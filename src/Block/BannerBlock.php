@@ -16,9 +16,9 @@ class BannerBlock extends FileBlock
         'CallToActionLink' => 'Link',
     ];
 
-    private static $singular_name = 'banner';
+    private static $singular_name = 'banner block';
 
-    private static $plural_name = 'banners';
+    private static $plural_name = 'banner blocks';
 
     private static $table_name = 'S_EB_BannerBlock';
 
