@@ -4,9 +4,9 @@ en:
     CallToActionTitle: 'Call to action link'
     PLURALNAME: banners
     PLURALS:
-      one: 'A banner'
-      other: '{count} banners'
-    SINGULARNAME: banner
+      one: 'A banner block'
+      other: '{count} banner blocks'
+    SINGULARNAME: 'banner block'
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Link description'
     LinkText: 'Link text'
