@@ -76,7 +76,10 @@ Feature: Manage banner blocks
     When I see a list of blocks
       And I press the "View actions" button
     Then I should see the archive button for block 1
-    When I press the "Archive" button
+
+    # Use css selector instead of 'When I press the "Archive" button' otherwise behat will get
+    # confused and click the Archive model admin
+    When I click on the ".element-editor__actions-archive.dropdown-item" element
       And I see the text "Are you sure you want to send this block to the archive?" in the alert
       And I confirm the dialog
       # Sometimes Behat can be quicker than the time it takes the JS to remove the element...
