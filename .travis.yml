@@ -6,7 +6,7 @@ import:
 env:
   global:
     # Require at least recipe 4.7.x-dev to satisfy the silverstripe/admin:1.7@dev requirement
-    - REQUIRE_RECIPE="4.7.x-dev || "
+    - REQUIRE_RECIPE="^4.7"
     # Allow the installation of 4.x-dev which is graphql 4 compatible for when running a job that requires graphql 4
     # Also set the minimum version of elemental to 4.5.0 which is graphql 3 compatible only
     # Otherwise elemental 4.4.1 will be installed which has no graphql contraint and is not graphql 4 compatible
