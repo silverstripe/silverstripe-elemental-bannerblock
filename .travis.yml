@@ -6,9 +6,16 @@ import:
 env:
   global:
     # Require at least recipe 4.7.x-dev to satisfy the silverstripe/admin:1.7@dev requirement
-    - REQUIRE_RECIPE="4.7.x-dev || "
-    # Allow the installation of 4.x-dev which is graphql 4 compatible for when running a job that requires graphql 4
-    # Also set the minimum version of elemental to 4.5.0 which is graphql 3 compatible only
-    # Otherwise elemental 4.4.1 will be installed which has no graphql contraint and is not graphql 4 compatible
-    - REQUIRE_EXTRA="dnadesign/silverstripe-elemental:^4.5@dev || 4.x-dev"
+    - REQUIRE_RECIPE="4.x-dev || "
     - BEHAT_SUITE="elemental-bannerblock"
+
+before_script:
+  # Allow the installation of 4.x-dev which is graphql 4 compatible for when running a job that requires graphql 4
+  # Also set the minimum version of elemental to 4.5.0 which is graphql 3 compatible only
+  # Otherwise elemental 4.4.1 will be installed which has no graphql contraint and is not graphql 4 compatible
+  # Doing this in before_script instead of REQUIRE_EXTRA above because the || would not work in conjuction with the
+  # unquoted $REQUIRE_EXTRA in travis-shared-config base.yml
+  - composer require --no-update "dnadesign/silverstripe-elemental:^4.5@dev || 4.x-dev"
+  # requiring via --no-update and the running update to bypass the php check on the php8 builds
+  # this can be reduced to a regular composer require once silverstripe-elemental supports php8 in composer.json
+  - composer update dnadesign/silverstripe-elemental
