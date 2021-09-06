@@ -6,7 +6,7 @@ import:
 env:
   global:
     # Require at least recipe 4.7.x-dev to satisfy the silverstripe/admin:1.7@dev requirement
-    - REQUIRE_RECIPE="4.x-dev || "
+    - REQUIRE_RECIPE="4.9.x-dev || "
     - BEHAT_SUITE="elemental-bannerblock"
 
 before_script:
