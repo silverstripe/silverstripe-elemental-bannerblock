@@ -2,11 +2,11 @@ it:
   SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Banner
     CallToActionTitle: ''
-    PLURALNAME: banners
+    PLURALNAME: ''
     PLURALS:
-      one: 'Un banner'
-      other: '{count} banners'
-    SINGULARNAME: banner
+      one: ''
+      other: ''
+    SINGULARNAME: ''
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Descrizione del collegamento'
     LinkText: 'Link al testo'
