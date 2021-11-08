@@ -3,6 +3,7 @@ namespace SilverStripe\ElementalBannerBlock\Tests\Behat\Context;
 
 use Behat\Mink\Element\NodeElement;
 use DNADesign\Elemental\Tests\Behat\Context\FeatureContext as BaseFeatureContext;
+use PHPUnit\Framework\Assert;
 use SilverStripe\BehatExtension\Context\MainContextAwareTrait;
 
 if (!class_exists(BaseFeatureContext::class)) {
@@ -27,9 +28,9 @@ class FeatureContext extends BaseFeatureContext
         $thumbnailImage = $this->findThumbnailImage($position);
 
         if ($iShouldNotSee) {
-            assertNull($thumbnailImage, 'Thumbnail image displayed (but shouldn\'t)');
+            Assert::assertNull($thumbnailImage, 'Thumbnail image displayed (but shouldn\'t)');
         } else {
-            assertNotNull($thumbnailImage, 'Thumbnail image not displayed (but should be)');
+            Assert::assertNotNull($thumbnailImage, 'Thumbnail image not displayed (but should be)');
         }
     }
 
@@ -43,7 +44,7 @@ class FeatureContext extends BaseFeatureContext
     protected function findThumbnailImage($position)
     {
         $block = $this->getSpecificBlock($position);
-        assertNotNull($block, 'Block ' . $position . ' was not found in the page.');
+        Assert::assertNotNull($block, 'Block ' . $position . ' was not found in the page.');
 
         $thumbnail = $block->find(
             'css',
@@ -68,7 +69,7 @@ class FeatureContext extends BaseFeatureContext
 
         $button = $popover->find('xpath', sprintf('/button[contains(text(), \'%s\')]', $buttonName));
 
-        assertNotNull($button, sprintf('Could not find button labelled "%s"', $buttonName));
+        Assert::assertNotNull($button, sprintf('Could not find button labelled "%s"', $buttonName));
 
         $button->click();
     }
@@ -81,7 +82,7 @@ class FeatureContext extends BaseFeatureContext
     {
         $page = $this->getMainContext()->getSession()->getPage();
         $modalTitle = $page->find('css', '[role=dialog] .modal-header > .modal-title');
-        assertNotNull($modalTitle, 'No modal on the page');
-        assertTrue($modalTitle->getText() == $title);
+        Assert::assertNotNull($modalTitle, 'No modal on the page');
+        Assert::assertTrue($modalTitle->getText() == $title);
     }
 }

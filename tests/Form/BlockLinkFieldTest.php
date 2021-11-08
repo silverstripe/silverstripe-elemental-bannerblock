@@ -15,7 +15,7 @@ class BlockLinkFieldTest extends SapphireTest
      */
     protected $field;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->field = new BlockLinkField('test');
@@ -23,7 +23,7 @@ class BlockLinkFieldTest extends SapphireTest
 
     public function testHasUniqueFormFieldSelector()
     {
-        $this->assertContains('block-link-field', $this->field->Type());
+        $this->assertStringContainsString('block-link-field', $this->field->Type());
     }
 
     public function testGetParsedValue()

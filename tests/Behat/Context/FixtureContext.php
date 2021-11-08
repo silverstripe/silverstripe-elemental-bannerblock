@@ -3,6 +3,7 @@ namespace SilverStripe\ElementalBannerBlock\Tests\Behat\Context;
 
 use Behat\Mink\Element\DocumentElement;
 use Behat\Mink\Element\NodeElement;
+use PHPUnit\Framework\Assert;
 use SilverStripe\Assets\Image;
 use SilverStripe\BehatExtension\Context\FixtureContext as BaseFixtureContext;
 use SilverStripe\ElementalBannerBlock\Block\BannerBlock;
@@ -92,7 +93,7 @@ YAML;
     public function stepISelectGalleryItem($name)
     {
         $item = $this->getGalleryItem($name);
-        assertNotNull($item, "File named $name could not be found");
+        Assert::assertNotNull($item, "File named $name could not be found");
         $item->click();
     }
 
