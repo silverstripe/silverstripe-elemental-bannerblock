@@ -35,7 +35,7 @@
     "reactstrap": "^5.0.0-beta"
   },
   "devDependencies": {
-    "@silverstripe/eslint-config": "^0.0.6",
+    "@silverstripe/eslint-config": "^0.1.0",
     "@silverstripe/webpack-config": "^1.6.0",
     "babel-core": "^6.24.1",
     "babel-jest": "^23.6.0",
