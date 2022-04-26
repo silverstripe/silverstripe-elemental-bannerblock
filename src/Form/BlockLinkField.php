@@ -55,7 +55,7 @@ class BlockLinkField extends FormField
         if ($this->parsedValue) {
             return $this->parsedValue;
         }
-        $parsedValue = json_decode($this->dataValue(), true);
+        $parsedValue = json_decode($this->dataValue() ?? '', true);
         return $this->parsedValue = ArrayData::create((array) $parsedValue);
     }
 
@@ -80,7 +80,7 @@ class BlockLinkField extends FormField
      */
     public function getLinkText()
     {
-        return trim($this->getParsedValue()->Text);
+        return trim($this->getParsedValue()->Text ?? '');
     }
     /**
      * Get the link "description", used for titles or alt text
