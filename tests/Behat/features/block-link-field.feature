@@ -9,7 +9,8 @@ Feature: Add link to banner block
       And a "image" "Uploads/folder1/file1.jpg"
       And a "page" "Blocks Page" with a "Alice's Block" banner element with "Alice's sample content" content
     Given I am logged in with "ADMIN" permissions
-      And I go to "/admin/pages/edit/show/6"
+      And I go to "/admin/pages"
+      And I click on "Blocks Page" in the tree
       And I wait until I see the ".element-editor__element" element
     Then I should see "Alice's Block"
 
