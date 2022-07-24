@@ -14,7 +14,8 @@ Feature: Manage banner blocks
     Given I am logged in with "ADMIN" permissions
       # Replace with 'And I click "Blocks Page" in the ".breadcrumbs-wrapper" element' once the ElementalArea refreshes,
       # See https://github.com/dnadesign/silverstripe-elemental/issues/320
-      And I go to "/admin/pages/edit/show/6"
+      And I go to "/admin/pages"
+      And I click on "Blocks Page" in the tree
       And I wait until I see the ".element-editor__element" element
     Then I should see "Alice's Block"
 
