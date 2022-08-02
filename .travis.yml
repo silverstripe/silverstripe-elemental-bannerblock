@@ -1,9 +1,0 @@
-version: ~> 1.0
-
-import:
-  - silverstripe/silverstripe-travis-shared:config/provision/standard-jobs-range-behat-npm.yml
-
-env:
-  global:
-    - BEHAT_SUITE="elemental-bannerblock"
-    - REQUIRE_EXTRA="dnadesign/silverstripe-elemental:4.x-dev"

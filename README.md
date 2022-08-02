@@ -1,9 +1,7 @@
-# SilverStripe Elemental Banner Block
+# Silverstripe Elemental Banner Block
 
 [![CI](https://github.com/silverstripe/silverstripe-elemental-bannerblock/actions/workflows/ci.yml/badge.svg)](https://github.com/silverstripe/silverstripe-elemental-bannerblock/actions/workflows/ci.yml)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-bannerblock/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/silverstripe/silverstripe-elemental-bannerblock/?branch=master)
-[![codecov](https://codecov.io/gh/silverstripe/silverstripe-elemental-bannerblock/branch/master/graph/badge.svg)](https://codecov.io/gh/silverstripe/silverstripe-elemental-bannerblock)
-[![SilverStripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
+[![Silverstripe supported module](https://img.shields.io/badge/silverstripe-supported-0071C4.svg)](https://www.silverstripe.org/software/addons/silverstripe-commercially-supported-module-list/)
 
 This repository contains a "banner block" for the [silverstripe-elemental](https://github.com/dnadesign/silverstripe-elemental) module.
 
@@ -19,7 +17,7 @@ Once complete, run `dev/build` from your browser, or command line via `vendor/bi
 
 ## Requirements
 
-* SilverStripe CMS ^4.3
+* Silverstripe CMS ^4.3
 * Elemental ^4.0
 
 ## Translations
