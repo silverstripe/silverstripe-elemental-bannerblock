@@ -11,7 +11,8 @@ Feature: Manage banner blocks
       And a "page" "Blocks Page" with a "Alice's Block" banner element with "Alice's sample content" content
       And a "page" "Blocks Page" with a "Bob's Block" banner element with "Some content II" content
 
-    Given I am logged in with "ADMIN" permissions
+    Given the "group" "EDITOR" has permissions "Access to 'Pages' section"
+      And I am logged in as a member of "EDITOR" group
       # Replace with 'And I click "Blocks Page" in the ".breadcrumbs-wrapper" element' once the ElementalArea refreshes,
       # See https://github.com/dnadesign/silverstripe-elemental/issues/320
       And I go to "/admin/pages"
