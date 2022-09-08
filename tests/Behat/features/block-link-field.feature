@@ -8,7 +8,8 @@ Feature: Add link to banner block
     Given I add an extension "DNADesign\Elemental\Extensions\ElementalPageExtension" to the "Page" class
       And a "image" "Uploads/folder1/file1.jpg"
       And a "page" "Blocks Page" with a "Alice's Block" banner element with "Alice's sample content" content
-    Given I am logged in with "ADMIN" permissions
+    Given the "group" "EDITOR" has permissions "Access to 'Pages' section"
+      And I am logged in as a member of "EDITOR" group
       And I go to "/admin/pages"
       And I click on "Blocks Page" in the tree
       And I wait until I see the ".element-editor__element" element
