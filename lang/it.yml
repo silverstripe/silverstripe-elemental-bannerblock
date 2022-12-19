@@ -6,6 +6,7 @@ it:
     PLURALS:
       one: ''
       other: ''
+      many: ''
     SINGULARNAME: ''
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Descrizione del collegamento'

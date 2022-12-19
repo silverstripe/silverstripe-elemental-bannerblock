@@ -1,0 +1,16 @@
+pl:
+  SilverStripe\ElementalBannerBlock\Block\BannerBlock:
+    BlockType: Baner
+    CallToActionTitle: 'Call to action link'
+    PLURALNAME: 'baner bloki'
+    PLURALS:
+      one: ''
+      few: ''
+      many: ''
+      other: ''
+    SINGULARNAME: 'baner blok'
+  SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
+    Description: 'Opis linku'
+    LinkText: 'Tekst linku'
+    SelectPage: 'Zaznacz stronę'
+    TargetBlank: 'Otwórz w nowym oknie/zakładce'
