@@ -42,7 +42,7 @@ Feature: Manage banner blocks
       # TODO Test adding files to a banner block via inline editing
     When I press the "Save" button in the actions menu for block 1
       And I wait 1 second
-    Then I should see a "Saved 'Additional Banner Block' successfully" notice
+    Then I should see a "Saved 'Additional Banner Block' successfully" success toast
 
     When I click on the caret button for block 1
     Then I should see "Additional sample content"
@@ -71,7 +71,7 @@ Feature: Manage banner blocks
       # TODO Test adding files to a banner block via inline editing
     When I press the "Save" button in the actions menu for block 1
       And I wait 1 second
-    Then I should see a "Saved 'Eve's Block' successfully" notice
+    Then I should see a "Saved 'Eve's Block' successfully" success toast
 
   @modal
   Scenario: I can archive a block

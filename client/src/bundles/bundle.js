@@ -1,2 +1,2 @@
-require('../legacy/BlockLinkFieldEntwine');
-require('boot');
+import '../legacy/BlockLinkFieldEntwine';
+import 'boot';
