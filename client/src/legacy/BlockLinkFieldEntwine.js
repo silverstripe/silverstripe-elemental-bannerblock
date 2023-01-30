@@ -1,7 +1,7 @@
 /* global ss */
 import jQuery from 'jquery';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { loadComponent } from 'lib/Injector';
 
 /**
@@ -13,6 +13,8 @@ import { loadComponent } from 'lib/Injector';
  */
 jQuery.entwine('ss', ($) => {
   $('.js-injector-boot .form__field-holder .block-link-field[data-useEntwine]').entwine({
+    ReactRoot: null,
+
     /**
      * Instantiate the "insert link" dialog when a BlockLinkField is added to a page and
      * renders the equivalent React component for the BlockLinkField
@@ -34,17 +36,23 @@ jQuery.entwine('ss', ($) => {
         hideLabels: true,
       };
 
-      ReactDOM.render(
-        <BlockLinkFieldComponent {...props} />,
-        this[0]
-      );
+      let root = this.getReactRoot();
+      if (!root) {
+        root = createRoot(this[0]);
+        this.setReactRoot(root);
+      }
+      root.render(<BlockLinkFieldComponent {...props} />);
     },
 
     /**
      * Remove the component when unmatching
      */
     onunmatch() {
-      ReactDOM.unmountComponentAtNode(this[0]);
+      const root = this.getReactRoot();
+      if (root) {
+        root.unmount();
+        this.setReactRoot(null);
+      }
     },
   });
 });
