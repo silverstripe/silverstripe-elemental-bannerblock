@@ -2,11 +2,6 @@ fi:
   SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Banneri
     CallToActionTitle: 'Call to action -linkki'
-    PLURALNAME: ''
-    PLURALS:
-      one: ''
-      other: ''
-    SINGULARNAME: ''
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Linkin kuvaus'
     LinkText: Linkkiteksti
