@@ -25,9 +25,9 @@ function makeProps(obj = {}) {
 
 test('BlockLinkField should render the class icon, the link, and the actions', () => {
   const { container } = render(<BlockLinkField {...makeProps()}/>);
-  expect(container.querySelector('.block-link-field__icon')).not.toBeNull();
-  expect(container.querySelector('.block-link-field__content')).not.toBeNull();
-  expect(container.querySelector('.block-link-field__actions')).not.toBeNull();
+  expect(container.querySelectorAll('.block-link-field__icon')).toHaveLength(1);
+  expect(container.querySelectorAll('.block-link-field__content')).toHaveLength(1);
+  expect(container.querySelectorAll('.block-link-field__actions')).toHaveLength(1);
 });
 
 test('BlockLinkField should render no actions if BlockLinkActionsComponent is not given', () => {
@@ -37,19 +37,19 @@ test('BlockLinkField should render no actions if BlockLinkActionsComponent is no
     })}
     />
   );
-  expect(container.querySelector('.block-link-field__icon')).not.toBeNull();
-  expect(container.querySelector('.block-link-field__content')).not.toBeNull();
-  expect(container.querySelector('.block-link-field__actions')).toBeNull();
+  expect(container.querySelectorAll('.block-link-field__icon')).toHaveLength(1);
+  expect(container.querySelectorAll('.block-link-field__content')).toHaveLength(1);
+  expect(container.querySelectorAll('.block-link-field__actions')).toHaveLength(0);
 });
 
 test('BlockLinkField should render the InsertModalLinkComponent', () => {
   const { container } = render(<BlockLinkField {...makeProps()}/>);
-  expect(container.querySelector('[data-testid="test-insert-modal-link"]')).not.toBeNull();
+  expect(container.querySelectorAll('[data-testid="test-insert-modal-link"]')).toHaveLength(1);
 });
 
 test('BlockLinkField should render the BlockLinkFieldActionsComponent', () => {
   const { container } = render(<BlockLinkField {...makeProps()}/>);
-  expect(container.querySelector('.test-block-link-field-actions')).not.toBeNull();
+  expect(container.querySelectorAll('.test-block-link-field-actions')).toHaveLength(1);
 });
 
 test('BlockLinkField should return the linked page within the Entwine context', () => {
@@ -92,14 +92,25 @@ test('BlockLinkField returns relative URL for the linked page with a leading sla
   expect(container.querySelector('.block-link-field__link').textContent).toBe('/foo');
 });
 
-test('BlockLinkField returns empty string if no relative URL provided', () => {
+test('BlockLinkField prompts for a link to be added if no relative URL provided', () => {
   const { container } = render(
     <BlockLinkField {...makeProps({
       linkedPage: {},
     })}
     />
   );
-  expect(container.querySelector('.block-link-field__link')).toBeNull();
+
+  // No link should render
+  expect(container.querySelectorAll('.block-link-field__link')).toHaveLength(0);
+
+  // icon, actions, and content should still render
+  expect(container.querySelectorAll('.block-link-field__actions')).toHaveLength(1);
+  expect(container.querySelectorAll('.block-link-field__icon')).toHaveLength(1);
+  expect(container.querySelectorAll('.block-link-field__content')).toHaveLength(1);
+
+  // we should prompt for a link to be added
+  expect(container.querySelectorAll('.block-link-field__content--message-add-link')).toHaveLength(1);
+  expect(container.querySelector('.block-link-field__content--message-add-link').textContent).toBe('Add link');
 });
 
 test('BlockLinkField fetches extra class names if provided', () => {
