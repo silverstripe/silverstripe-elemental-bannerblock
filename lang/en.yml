@@ -7,6 +7,8 @@ en:
       one: 'A banner block'
       other: '{count} banner blocks'
     SINGULARNAME: 'banner block'
+    db_CallToActionLink: 'Call to action link'
+    db_Content: Content
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Link description'
     LinkText: 'Link text'
