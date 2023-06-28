@@ -2,8 +2,8 @@
 /* global jest, test, describe, it, expect */
 
 import React from 'react';
-import { Component as BlockLinkField } from '../BlockLinkField';
 import { render, fireEvent, screen } from '@testing-library/react';
+import { Component as BlockLinkField } from '../BlockLinkField';
 
 function makeProps(obj = {}) {
   return {

@@ -38,7 +38,6 @@ class BlockLinkField extends Component {
     this.componentDidUpdate();
   }
 
-
   /**
    * When the component is updated, parse the input value (provided as JSON) and store it
    * in local state as a structured object.
@@ -51,7 +50,7 @@ class BlockLinkField extends Component {
       .some((key) => value[key] !== stateValue[key]);
 
     if (stateNeedUpdate) {
-        // See https://github.com/yannickcr/eslint-plugin-react/issues/1707
+      // See https://github.com/yannickcr/eslint-plugin-react/issues/1707
         this.setState({value});// eslint-disable-line
     }
   }
