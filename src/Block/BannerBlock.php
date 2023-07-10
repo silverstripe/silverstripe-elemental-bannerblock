@@ -78,10 +78,7 @@ class BannerBlock extends FileBlock
      */
     public function getSummary()
     {
-        if ($this->File() && $this->File()->exists()) {
-            return $this->getSummaryThumbnail() . $this->dbObject('Content')->Summary(20);
-        }
-        return '';
+        return $this->dbObject('Content')->Summary(20);
     }
 
     /**
@@ -92,7 +89,6 @@ class BannerBlock extends FileBlock
     protected function provideBlockSchema()
     {
         $blockSchema = parent::provideBlockSchema();
-        $blockSchema['content'] = $this->dbObject('Content')->Summary(20);
         return $blockSchema;
     }
 

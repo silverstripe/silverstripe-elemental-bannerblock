@@ -41,4 +41,16 @@ class BannerBlockTest extends SapphireTest
         $block->write();
         $this->assertNull($block->CallToActionLink());
     }
+
+    public function testGetSummary()
+    {
+        /** @var BannerBlock $block */
+        $block = $this->objFromFixture(BannerBlock::class, 'block_with_content');
+
+        $summary = $block->getSummary();
+        $this->assertEquals(
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            $summary
+        );
+    }
 }
