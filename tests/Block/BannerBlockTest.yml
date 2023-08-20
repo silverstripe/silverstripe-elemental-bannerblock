@@ -1,3 +1,7 @@
 SilverStripe\CMS\Model\SiteTree:
   test_page:
     Title: Test
+
+SilverStripe\ElementalBannerBlock\Block\BannerBlock:
+  block_with_content:
+    Content: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
