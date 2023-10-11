@@ -39,7 +39,6 @@ Feature: Manage banner blocks
     Given I click on block 1
       And I fill in "Additional Banner Block" for "Title" for block 1
       And I fill in "<p>Additional sample content</p>" for "Content" for block 1
-      # TODO Test adding files to a banner block via inline editing
     When I press the "Save" button in the actions menu for block 1
       And I wait 1 second
     Then I should see a "Saved 'Additional Banner Block' successfully" success toast
@@ -68,7 +67,6 @@ Feature: Manage banner blocks
     Given I fill in "Eve's Block" for "Title" for block 1
       And I fill in "<p>New sample content</p>" for "Content" for block 1
       And I wait 1 second
-      # TODO Test adding files to a banner block via inline editing
     When I press the "Save" button in the actions menu for block 1
       And I wait 1 second
     Then I should see a "Saved 'Eve's Block' successfully" success toast
