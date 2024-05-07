@@ -1,10 +1,8 @@
 pl:
   SilverStripe\ElementalBannerBlock\Block\BannerBlock:
     BlockType: Baner
-    CallToActionTitle: 'Call to action link'
     PLURALNAME: 'baner bloki'
     SINGULARNAME: 'baner blok'
-    db_CallToActionLink: 'Call to action link'
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Opis linku'
     LinkText: 'Tekst linku'
