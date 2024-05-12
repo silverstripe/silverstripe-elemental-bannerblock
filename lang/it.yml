@@ -1,6 +1,4 @@
 it:
-  SilverStripe\ElementalBannerBlock\Block\BannerBlock:
-    BlockType: Banner
   SilverStripe\ElementalBannerBlock\Form\BlockLinkField:
     Description: 'Descrizione del collegamento'
     LinkText: 'Link al testo'
