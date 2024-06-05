@@ -8,9 +8,9 @@
   }
 }
 
-.block-link-field__icon::before {
+.block-link-field__icon:before {
   content: "2"; // font-icon-link
-  font-family: silverstripe;
+  font-family: "silverstripe";
   font-size: $font-size-lg * 1.2;
   left: $btn-icon-spacing;
   margin-right: $btn-icon-spacing * 3;
