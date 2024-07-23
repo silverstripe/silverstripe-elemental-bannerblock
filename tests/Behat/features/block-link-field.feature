@@ -25,7 +25,6 @@ Feature: Add link to banner block
     When I press the "Clear link" button in the actions menu for call to action link in block 1
       And I press the "Save" button in the actions menu for block 1
       And I wait 1 second
-      And I click on block 1
     Then I should see the edit form for block 1
       And I should see "Call to action link"
       And I should see "Add link"
