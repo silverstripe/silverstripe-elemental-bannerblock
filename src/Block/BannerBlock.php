@@ -110,7 +110,7 @@ class BannerBlock extends FileBlock
 
         // Link page, if selected
         if ($data->PageID) {
-            $data->setField('Page', self::get_by_id(SiteTree::class, $data->PageID));
+            $data->setField('Page', BannerBlock::get_by_id(SiteTree::class, $data->PageID));
         }
 
         return $data;
