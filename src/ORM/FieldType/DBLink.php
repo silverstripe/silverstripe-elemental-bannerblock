@@ -3,6 +3,7 @@
 namespace SilverStripe\ElementalBannerBlock\ORM\FieldType;
 
 use SilverStripe\ElementalBannerBlock\Form\BlockLinkField;
+use SilverStripe\Forms\FormField;
 use SilverStripe\ORM\FieldType\DBText;
 
 /**
@@ -11,7 +12,7 @@ use SilverStripe\ORM\FieldType\DBText;
  */
 class DBLink extends DBText
 {
-    public function scaffoldFormField($title = null, $params = null)
+    public function scaffoldFormField(?string $title = null, array $params = []): ?FormField
     {
         return BlockLinkField::create($this->name, $title);
     }
