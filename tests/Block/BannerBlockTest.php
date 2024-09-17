@@ -6,7 +6,7 @@ use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ElementalBannerBlock\Block\BannerBlock;
 use SilverStripe\Forms\HTMLEditor\TinyMCEConfig;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\Requirements;
 
 class BannerBlockTest extends SapphireTest

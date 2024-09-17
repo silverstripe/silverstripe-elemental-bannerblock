@@ -5,7 +5,7 @@ namespace SilverStripe\ElementalBannerBlock\Block;
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\ElementalFileBlock\Block\FileBlock;
 use SilverStripe\Forms\FieldList;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 
 class BannerBlock extends FileBlock
 {

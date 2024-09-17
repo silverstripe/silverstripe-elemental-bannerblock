@@ -4,7 +4,7 @@ namespace SilverStripe\ElementalBannerBlock\Tests\Form;
 
 use SilverStripe\Dev\SapphireTest;
 use SilverStripe\ElementalBannerBlock\Form\BlockLinkField;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 
 class BlockLinkFieldTest extends SapphireTest
 {
