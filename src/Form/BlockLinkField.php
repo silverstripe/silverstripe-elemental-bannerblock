@@ -6,7 +6,7 @@ use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Core\Convert;
 use SilverStripe\Forms\FormField;
 use SilverStripe\ORM\DataObject;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\ArrayData;
 
 class BlockLinkField extends FormField
 {
