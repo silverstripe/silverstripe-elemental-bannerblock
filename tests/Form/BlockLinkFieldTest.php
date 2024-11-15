@@ -64,13 +64,6 @@ class BlockLinkFieldTest extends SapphireTest
         $this->assertFalse($this->field->getShowLinkText(), 'Link text field can be disabled');
     }
 
-    public function testGetAttributes()
-    {
-        $attributes = $this->field->getAttributes();
-        $this->assertArrayHasKey('data-schema', $attributes);
-        $this->assertArrayHasKey('data-state', $attributes);
-    }
-
     public function testGetSchemaDataDefault()
     {
         $schemaDataDefaults = $this->field->getSchemaDataDefaults();

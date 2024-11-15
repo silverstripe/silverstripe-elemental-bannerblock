@@ -135,22 +135,6 @@ class BlockLinkField extends FormField
     }
 
     /**
-     * When not used in a React form factory context, this adds the schema and state data to SilverStripe
-     * template rendered attributes lists
-     *
-     * @return array
-     */
-    public function getAttributes()
-    {
-        $attributes = parent::getAttributes();
-
-        $attributes['data-schema'] = json_encode($this->getSchemaData());
-        $attributes['data-state'] = json_encode($this->getSchemaState());
-
-        return $attributes;
-    }
-
-    /**
      * Add some extra props for the React component to work with
      *
      * {@inheritDoc}
