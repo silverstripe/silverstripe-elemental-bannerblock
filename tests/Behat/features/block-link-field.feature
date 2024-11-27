@@ -37,7 +37,7 @@ Feature: Add link to banner block
       And the "Link description" field should contain ""
       And the "Open in new window/tab" checkbox should be unchecked
 
-    When I select "About Us" in the "#Form_editorInternalLink_PageID_Holder" tree dropdown
+    When I select "About Us" in the "#Form_linkModalFormeditorInternalLink_PageID_Holder" tree dropdown
       And I fill in "Click Me" for "Link text"
       And I press the "Insert link" button
     Then I should see "Changes will be visible upon save"
