@@ -16,7 +16,7 @@
         "silverstripe/cms": "^6",
         "silverstripe/framework": "^6",
         "silverstripe/elemental-fileblock": "^4",
-        "silverstripe/vendor-plugin": "^2",
+        "silverstripe/vendor-plugin": "^3",
         "dnadesign/silverstripe-elemental": "^6"
     },
     "require-dev": {
