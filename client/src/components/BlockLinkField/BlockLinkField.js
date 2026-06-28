@@ -10,7 +10,7 @@ import { inject, loadComponent } from 'lib/Injector';
 
 // Re-use the CMS page internal link form schema
 const formName = 'editorInternalLink';
-const sectionConfigKey = 'SilverStripe\\CMS\\Controllers\\CMSPageEditController';
+const sectionConfigKey = 'SilverStripe\\Admin\\LeftAndMain';
 const InjectedLinkModal = loadComponent(createInsertLinkModal(sectionConfigKey, formName));
 
 /**
@@ -43,6 +43,11 @@ class BlockLinkField extends Component {
    * in local state as a structured object.
    */
   componentDidUpdate() {
+    // Don't sync from props when the user has just submitted the modal — that
+    // would override the new value before the parent form saves it.
+    if (this.state.isDirty) {
+      return;
+    }
     const valueStr = this.props.value;
     const value = valueStr ? JSON.parse(valueStr) : {};
     const stateValue = this.state.value;
